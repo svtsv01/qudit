@@ -4,7 +4,7 @@
 
 #### Week01
 
-- 1. Reviewed the article: _Efficient Fault-Tolerant Quantum Protocol for Differential Privacy in the Shuffle Model_.
+- 1. Reviewed the article: _Efficient Fault-Tolerant Quantum Protocol for Differential Privacy in the Shuffle Model_ [1].
 - 2. Learned how to work with Google Cirq and implemented a couple of basic test programs.
 - 3. Created a GitHub repository to store the library code.
 - 4. Wrote implementations of X and Z Gates.
@@ -12,4 +12,13 @@
 
 #### Week02
 
-- 1. Project was consolidated and organised
+- 1. The project was consolidated and organized.
+- 2. A circuit builder function was created that handles input in two formats.
+- 3. A function that formats the output was implemented.
+- 4. I created the initial implementation of the Hadamard gate according to the article [1].
+- 5. I also found and watched the tutorial about _How to Generalize Qubit Circuits to Qudits_ [2].
+
+#### References:
+
+[1] - https://arxiv.org/pdf/2409.04026
+[2] - https://www.youtube.com/live/3BfXsOJXpw4?si=vDT-jZ9qF5wknQxi
