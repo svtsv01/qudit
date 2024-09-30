@@ -20,7 +20,8 @@ class quditXGate(cirq.Gate):
 
     def _circuit_diagram_info_(self, args):
         return f"X(d={self.d})"
-
+    
+# Implementation of Z gate for qudit
 class quditZGate(cirq.Gate):
 
     def __init__(self, d):
@@ -38,9 +39,11 @@ class quditZGate(cirq.Gate):
 
     def _circuit_diagram_info_(self, args):
         return f"Z(d={self.d})"
-class QuditHGate(cirq.Gate):
+
+# Implementation of H gate for qudit
+class quditHGate(cirq.Gate):
     def __init__(self, d):
-        super(QuditHGate, self)
+        super(quditHGate, self)
         self.d = d 
 
     def _qid_shape_(self):

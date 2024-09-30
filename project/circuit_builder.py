@@ -1,7 +1,5 @@
 #creating the circuit:
-
 import cirq
-from qudit_gates import QuditXGate, QuditZGate, QuditHGate
 
 def create_circuit(*args):
     circuit = cirq.Circuit()
