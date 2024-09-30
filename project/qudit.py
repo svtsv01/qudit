@@ -42,6 +42,7 @@ class quditZGate(cirq.Gate):
 
 # Implementation of H gate for qudit
 class quditHGate(cirq.Gate):
+
     def __init__(self, d):
         super(quditHGate, self)
         self.d = d 
