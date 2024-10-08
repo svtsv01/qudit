@@ -29,6 +29,7 @@
 #### Week04
 
 - 1. CNOT gate was implemented.
+- 2. Circuit for creating the generalized Bell state was simualted
 
 #### References:
 
