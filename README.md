@@ -18,13 +18,17 @@
 - 4. I created the initial implementation of the Hadamard gate according to the article [1].
 - 5. I also found and watched the tutorial about _How to Generalize Qubit Circuits to Qudits_ [2].
 
-#### Week02
+#### Week03
 
 - 1. The project was consolidated and organized.
 - 2. I read articles about the implementation of the CNOT gate [3].
 - 3. The implementation of CNOT gate was started.
 - 4. I found errors in the exsisting code.
 - 5. These errors were fixed.
+
+#### Week04
+
+- 1. CNOT gate was implemented.
 
 #### References:
 

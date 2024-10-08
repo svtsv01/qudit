@@ -3,20 +3,42 @@ import cirq
 
 def create_circuit(*args):
     circuit = cirq.Circuit()
+    qudits = {}
 
-    if isinstance(args[0], tuple):
-        # Handling tuples like (d1, x), (d2, x), (d3, y)
-        for dimension, gate_type in args:
-            qudit = cirq.NamedQid(f"qudit_d{dimension}", dimension=dimension)
-            gate = gate_type(dimension) 
-            circuit.append(gate(qudit))
-    else:
-        # Handling dimension followed by gates, e.g., (d, x, y, z, z)
-        dimension = args[0] 
-        gates = args[1:]   
-        qudit = cirq.NamedQid(f"qudit_d{dimension}", dimension=dimension)
-        for gate_type in gates:
+    dimension = None
+
+    for arg in args:
+        if isinstance(arg, int):
+            dimension = arg
+            continue
+
+        if not isinstance(arg, tuple):
+            raise ValueError(f"Invalid argument format: {arg}")
+
+        if len(arg) == 3:
+            # Tuple like (dimension, gate_type, qudit_names)
+            dim, gate_type, qudit_names = arg
+            dimension = dim  
+        elif len(arg) == 2:
+            if dimension is None:
+                raise ValueError("Dimension must be specified before gate tuples without dimension")
+            gate_type, qudit_names = arg
+        else:
+            raise ValueError(f"Invalid tuple length: {len(arg)}")
+
+        if isinstance(qudit_names, str):
+            qudit_names = [qudit_names]
+
+        qudit_objects = []
+        for name in qudit_names:
+            if name not in qudits:
+                qudits[name] = cirq.NamedQid(name, dimension=dimension)
+            qudit_objects.append(qudits[name])
+
+        if issubclass(gate_type, cirq.Gate):
             gate = gate_type(dimension)
-            circuit.append(gate(qudit))
+            circuit.append(gate(*qudit_objects))
+        else:
+            raise ValueError(f"Invalid gate type: {gate_type}")
 
     return circuit

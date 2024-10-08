@@ -64,29 +64,25 @@ class quditHGate(cirq.Gate):
     def _circuit_diagram_info_(self, args):
         return f"H(d={self.d})"
         
-#under construction
 class quditCNOTGate(cirq.Gate):
     def __init__(self, d):
-        super().__init__()
+        super(quditCNOTGate, self).__init__()
         self.d = d
 
     def _qid_shape_(self):
-        return (self.d, self.d) 
+        return (self.d, self.d)  # It acts on two qudits of dimension d
 
     def _unitary_(self):
-        cnot_matrix = np.zeros((self.d, self.d, self.d, self.d), dtype=complex)
-        """
-        for control in range(self.d):
-            for target in range(self.d):
-            
-                if control == 1: 
-                    new_target = (target + 1) % self.d  
-                else:
-                    new_target = target  
-
-                cnot_matrix[control, target, control, new_target] = 1
-        """        
-        return cnot_matrix.reshape((self.d ** 2, self.d ** 2))
+        d = self.d
+        dim = d * d
+        unitary_matrix = np.zeros((dim, dim), dtype=complex)
+        for i in range(d):
+            for j in range(d):
+                # Compute the input and output indices
+                input_index = i * d + j
+                output_index = i * d + ((i + j) % d)
+                unitary_matrix[output_index, input_index] = 1
+        return unitary_matrix
 
     def _circuit_diagram_info_(self, args):
-        return f"CNOT(d={self.d})"
+        return [f"CNOT(d={self.d})", f""] 
