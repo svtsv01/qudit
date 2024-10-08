@@ -30,6 +30,9 @@
 
 - 1. CNOT gate was implemented.
 - 2. Circuit for creating the generalized Bell state was simualted
+- 3. Function to create circuit was modified 
+- 4. printVector function was created
+- 5. state_vector function was implemented
 
 #### References:
 

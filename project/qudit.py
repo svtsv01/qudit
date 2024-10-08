@@ -86,3 +86,11 @@ class quditCNOTGate(cirq.Gate):
 
     def _circuit_diagram_info_(self, args):
         return [f"", f"CNOT(d={self.d})"] 
+    
+def state_vector(dimension, index):
+
+    if not (0 <= index < dimension):
+        raise ValueError(f"Index {index} is out of bounds for dimension {dimension}.")
+    state = np.zeros(dimension, dtype=complex)
+    state[index] = 1
+    return state
