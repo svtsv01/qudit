@@ -70,7 +70,7 @@ class quditCNOTGate(cirq.Gate):
         self.d = d
 
     def _qid_shape_(self):
-        return (self.d, self.d)  # It acts on two qudits of dimension d
+        return (self.d, self.d) 
 
     def _unitary_(self):
         d = self.d
@@ -78,7 +78,6 @@ class quditCNOTGate(cirq.Gate):
         unitary_matrix = np.zeros((dim, dim), dtype=complex)
         for i in range(d):
             for j in range(d):
-                # Compute the input and output indices
                 input_index = i * d + j
                 output_index = i * d + ((i + j) % d)
                 unitary_matrix[output_index, input_index] = 1
