@@ -85,4 +85,4 @@ class quditCNOTGate(cirq.Gate):
         return unitary_matrix
 
     def _circuit_diagram_info_(self, args):
-        return [f"CNOT(d={self.d})", f""] 
+        return [f"", f"CNOT(d={self.d})"] 
