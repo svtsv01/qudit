@@ -34,8 +34,18 @@
 - 4. printVector function was created
 - 5. state_vector function was implemented
 
+#### Week05
+
+- 1. Project was restructured 
+- 2. Testing framework that generates random circuits was created 
+- 3. Testing was conducted
+- 4. Memory and Time Complexity was analysed 
+- 5. The research about Cloud-based quantum computing was done [4, 5]
+
 #### References:
 
 [1] - https://arxiv.org/pdf/2409.04026
 [2] - https://www.youtube.com/live/3BfXsOJXpw4?si=vDT-jZ9qF5wknQxi
 [3] - https://en.wikipedia.org/wiki/Controlled_NOT_gate
+[4] - https://azure.microsoft.com/en-us/products/quantum
+[5] - https://experiments.withgoogle.com/quantum-computing-playground
