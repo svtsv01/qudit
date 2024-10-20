@@ -45,6 +45,10 @@
 #### Week06
 
 - 1. Solved software dependences issues with CIRQ and VS code
+- 2. Research about measurment in Cirq was conducted
+- 3. Quantum Teleportation algo was implemented [6]
+- 4. Some preparation for qudit MeasurementGate was done [7]
+- 5. https://quantumai.google/reference/python/cirq/MSGate
 
 #### References:
 
@@ -53,3 +57,5 @@
 [3] - https://en.wikipedia.org/wiki/Controlled_NOT_gate
 [4] - https://azure.microsoft.com/en-us/products/quantum
 [5] - https://experiments.withgoogle.com/quantum-computing-playground
+[6] - https://learning.quantum.ibm.com/course/basics-of-quantum-information/entanglement-in-action
+[7] - https://quantumai.google/reference/python/cirq/MeasurementGate

@@ -1,4 +1,5 @@
 import numpy as np
+import cirq
 # function to format the output
 
 def format_out(matrix, output_type='float'):
@@ -57,3 +58,9 @@ def tensor_product(*arrays):
     for array in arrays[1:]:
         result = np.kron(result, array)
     return result
+
+def add_measurements(circuit, qudits, measurement_keys=None):
+    if measurement_keys is None:
+        measurement_keys = [f"meas_{qudit.name}" for qudit in qudits]
+    for qudit, key in zip(qudits, measurement_keys):
+        circuit.append(cirq.measure(qudit, key=key))
