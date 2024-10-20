@@ -1,5 +1,6 @@
 # This file contains the implemenation of the qudit gates.
 
+from typing import Dict, List
 import cirq
 import numpy as np
 
@@ -85,6 +86,19 @@ class quditCNOTGate(cirq.Gate):
 
     def _circuit_diagram_info_(self, args):
         return [f"", f"CNOT(d={self.d})"] 
+
+# Implementation of Measurement Gate for qudit
+class quditMeasurementGate(cirq.Gate):
+    def __init__(self, d: int, key: str = 'm'):
+        super().__init__()
+        self.d = d
+        self.key = key
+
+    def _qid_shape_(self):
+        return (self.d,)
+
+    def _circuit_diagram_info_(self, args):
+        return f"M(d={self.d})"
     
 def state_vector(dimension, index):
 
@@ -93,3 +107,27 @@ def state_vector(dimension, index):
     state = np.zeros(dimension, dtype=complex)
     state[index] = 1
     return state
+
+def measure_qudits(state_vector: np.ndarray, qudit_order: List[cirq.Qid]) -> Dict[str, int]:
+
+    d = qudit_order[0].dimension  # Assuming all qudits have the same dimension
+    num_qudits = len(qudit_order)
+    total_dim = d ** num_qudits
+
+    if len(state_vector) != total_dim:
+        raise ValueError("State vector size does not match the total qudit dimensions.")
+
+    probabilities = np.abs(state_vector) ** 2
+    probabilities /= probabilities.sum()  # Normalize
+
+    # Sample a basis state based on the probabilities
+    sampled_index = np.random.choice(total_dim, p=probabilities)
+
+    # Decode the sampled index into individual qudit outcomes
+    measurement_results = {}
+    for qudit in reversed(qudit_order):
+        outcome = sampled_index % d
+        measurement_results[qudit.name] = outcome
+        sampled_index = sampled_index // d
+
+    return measurement_results

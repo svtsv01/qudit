@@ -48,7 +48,7 @@
 - 2. Research about measurment in Cirq was conducted
 - 3. Quantum Teleportation algo was implemented [6]
 - 4. Some preparation for qudit MeasurementGate was done [7]
-- 5. https://quantumai.google/reference/python/cirq/MSGate
+- 5. Testing of measurment was conducted[8]
 
 #### References:
 
@@ -59,3 +59,4 @@
 [5] - https://experiments.withgoogle.com/quantum-computing-playground
 [6] - https://learning.quantum.ibm.com/course/basics-of-quantum-information/entanglement-in-action
 [7] - https://quantumai.google/reference/python/cirq/MeasurementGate
+[8] - https://quantumai.google/reference/python/cirq/MSGate
