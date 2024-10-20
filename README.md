@@ -30,17 +30,21 @@
 
 - 1. CNOT gate was implemented.
 - 2. Circuit for creating the generalized Bell state was simualted
-- 3. Function to create circuit was modified 
+- 3. Function to create circuit was modified
 - 4. printVector function was created
 - 5. state_vector function was implemented
 
 #### Week05
 
-- 1. Project was restructured 
-- 2. Testing framework that generates random circuits was created 
+- 1. Project was restructured
+- 2. Testing framework that generates random circuits was created
 - 3. Testing was conducted
-- 4. Memory and Time Complexity was analysed 
+- 4. Memory and Time Complexity was analysed
 - 5. The research about Cloud-based quantum computing was done [4, 5]
+
+#### Week06
+
+- 1. Solved software dependences issues with CIRQ and VS code
 
 #### References:
 
