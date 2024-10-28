@@ -50,6 +50,10 @@
 - 4. Some preparation for qudit MeasurementGate was done [7]
 - 5. Testing of measurment was conducted[8]
 
+#### Week07
+
+- 1. Measurments were fixed.
+
 #### References:
 
 [1] - https://arxiv.org/pdf/2409.04026

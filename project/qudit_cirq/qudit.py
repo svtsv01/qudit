@@ -109,8 +109,7 @@ def state_vector(dimension, index):
     return state
 
 def measure_qudits(state_vector: np.ndarray, qudit_order: List[cirq.Qid]) -> Dict[str, int]:
-
-    d = qudit_order[0].dimension  # Assuming all qudits have the same dimension
+    d = qudit_order[0].dimension  
     num_qudits = len(qudit_order)
     total_dim = d ** num_qudits
 
@@ -118,12 +117,11 @@ def measure_qudits(state_vector: np.ndarray, qudit_order: List[cirq.Qid]) -> Dic
         raise ValueError("State vector size does not match the total qudit dimensions.")
 
     probabilities = np.abs(state_vector) ** 2
-    probabilities /= probabilities.sum()  # Normalize
+    probabilities /= probabilities.sum() 
 
-    # Sample a basis state based on the probabilities
+    
     sampled_index = np.random.choice(total_dim, p=probabilities)
 
-    # Decode the sampled index into individual qudit outcomes
     measurement_results = {}
     for qudit in reversed(qudit_order):
         outcome = sampled_index % d
