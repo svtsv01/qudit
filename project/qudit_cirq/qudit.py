@@ -3,6 +3,7 @@
 from typing import Dict, List
 import cirq
 import numpy as np
+from typing import Tuple
 
 # Implementation of X gate for qudit
 class quditXGate(cirq.Gate):
@@ -64,41 +65,32 @@ class quditHGate(cirq.Gate):
 
     def _circuit_diagram_info_(self, args):
         return f"H(d={self.d})"
-        
 class quditCNOTGate(cirq.Gate):
-    def __init__(self, d):
-        super(quditCNOTGate, self).__init__()
-        self.d = d
-
-    def _qid_shape_(self):
-        return (self.d, self.d) 
-
-    def _unitary_(self):
-        d = self.d
-        dim = d * d
-        unitary_matrix = np.zeros((dim, dim), dtype=complex)
-        for i in range(d):
-            for j in range(d):
-                input_index = i * d + j
-                output_index = i * d + ((i + j) % d)
-                unitary_matrix[output_index, input_index] = 1
-        return unitary_matrix
-
-    def _circuit_diagram_info_(self, args):
-        return [f"", f"CNOT(d={self.d})"] 
-
-# Implementation of Measurement Gate for qudit
-class quditMeasurementGate(cirq.Gate):
-    def __init__(self, d: int, key: str = 'm'):
+    def __init__(self, d: int):
         super().__init__()
         self.d = d
-        self.key = key
+    
+    def _qid_shape_(self) -> Tuple[int, ...]:
+        return (self.d, self.d)
 
-    def _qid_shape_(self):
-        return (self.d,)
+    def _unitary_(self) -> np.ndarray:
+        size = self.d ** 2
+        CNOT = np.zeros((size, size), dtype=complex)
+        for a in range(self.d):
+            for b in range(self.d):
+                control = a
+                target = (b + a) % self.d
+                row = a * self.d + b
+                col = a * self.d + target
+                CNOT[row, col] = 1
+        return CNOT
 
-    def _circuit_diagram_info_(self, args):
-        return f"M(d={self.d})"
+    def _circuit_diagram_info_(self, args: cirq.CircuitDiagramInfoArgs) -> cirq.CircuitDiagramInfo:
+        return cirq.CircuitDiagramInfo(wire_symbols=('C', 'X'))
+    
+# Implementation of Measurement Gate for qudit
+def qudit_measure(qudit: cirq.Qid, key: str) -> cirq.Operation:
+    return cirq.measure(qudit, key=key)
     
 def state_vector(dimension, index):
 
