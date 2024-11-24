@@ -6,10 +6,12 @@ import numpy as np
 from typing import Tuple
 
 # Implementation of X gate for qudit
+# Modified quditXGate
 class quditXGate(cirq.Gate):
-    def __init__(self, d):
-        super(quditXGate, self)
-        self.d = d
+    def __init__(self, d, exponent=1):
+        super().__init__()
+        self.d = int(d)
+        self.exponent = int(exponent % d)
 
     def _qid_shape_(self):
         return (self.d,)
@@ -17,32 +19,43 @@ class quditXGate(cirq.Gate):
     def _unitary_(self):
         x_matrix = np.zeros((self.d, self.d), dtype=complex)
         for i in range(self.d):
-            x_matrix[i][(i + 1) % self.d] = 1
-        transposed_matrix = x_matrix.T
-        return transposed_matrix
+            row = int((i + self.exponent) % self.d)
+            x_matrix[row][i] = 1
+        return x_matrix
 
     def _circuit_diagram_info_(self, args):
-        return f"X(d={self.d})"
-    
-# Implementation of Z gate for qudit
-class quditZGate(cirq.Gate):
+        return f"X^{self.exponent}(d={self.d})"
 
-    def __init__(self, d):
-        super(quditZGate, self)
-        self.d = d
+    def __pow__(self, power):
+        power = int(power)
+        new_exponent = (self.exponent * power) % self.d
+        return quditXGate(self.d, exponent=new_exponent)
+
+
+# Modified quditZGate
+class quditZGate(cirq.Gate):
+    def __init__(self, d, exponent=1):
+        super().__init__()
+        self.d = int(d)
+        self.exponent = int(exponent % d)
 
     def _qid_shape_(self):
         return (self.d,)
 
     def _unitary_(self):
         z_matrix = np.zeros((self.d, self.d), dtype=complex)
+        omega = np.exp(2j * np.pi / self.d)
         for i in range(self.d):
-            z_matrix[i][i] = np.exp(2j * np.pi * i / self.d)
-        transposed_matrix = z_matrix.T
-        return transposed_matrix
+            z_matrix[i][i] = omega ** ((i * self.exponent) % self.d)
+        return z_matrix
 
     def _circuit_diagram_info_(self, args):
-        return f"Z(d={self.d})"
+        return f"Z^{self.exponent}(d={self.d})"
+
+    def __pow__(self, power):
+        power = int(power)
+        new_exponent = (self.exponent * power) % self.d
+        return quditZGate(self.d, exponent=new_exponent)
 
 # Implementation of H gate for qudit
 class quditHGate(cirq.Gate):
@@ -65,6 +78,7 @@ class quditHGate(cirq.Gate):
 
     def _circuit_diagram_info_(self, args):
         return f"H(d={self.d})"
+    
 class quditCNOTGate(cirq.Gate):
     def __init__(self, d: int):
         super().__init__()
@@ -85,9 +99,10 @@ class quditCNOTGate(cirq.Gate):
                 CNOT[row, col] = 1
         return CNOT
 
-    def _circuit_diagram_info_(self, args: cirq.CircuitDiagramInfoArgs) -> cirq.CircuitDiagramInfo:
-        return cirq.CircuitDiagramInfo(wire_symbols=('C', 'X'))
+    def _circuit_diagram_info_(self, args):
+        return cirq.CircuitDiagramInfo(wire_symbols=(f"C(d={self.d})", f"X(d={self.d})"))
     
+
 # Implementation of Measurement Gate for qudit
 def qudit_measure(qudit: cirq.Qid, key: str) -> cirq.Operation:
     return cirq.measure(qudit, key=key)
