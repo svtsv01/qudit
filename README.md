@@ -54,6 +54,16 @@
 
 - 1. Measurments were fixed.
 
+### To Do:
+
+1. Finish README to make library useable, dependencies and the ways to fix them
+2. Install Cirq clear steps
+3. Github Codespace
+4. T gate and S gate to do
+5. Nice tutorial how to use it
+6. Limitations and dimensions.  
+   \*. Page 20-21 Stabilisers
+
 #### References:
 
 [1] - https://arxiv.org/pdf/2409.04026

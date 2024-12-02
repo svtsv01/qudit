@@ -37,3 +37,138 @@ The qudit Cirq library enhances Cirq by:
 - **pip**: The Python package installer.
 
 ### Installing Cirq
+
+1.1 **Install Cirq via pip**:
+
+```bash
+pip install cirq
+```
+
+1.2. **Verify the installation**
+
+```
+python -c "import cirq; print('Cirq version:', cirq.__version__)"
+```
+
+Ensure the version is 0.10.0 or higher for qudit support.
+
+2. **Installing the Qudit Cirq Library via Anaconda**
+
+#### Prerequisites
+
+- **Anaconda** or **Miniconda** installed on your system.
+- **Git** installed for cloning repositories.
+
+---
+
+2.1. **Create a New Anaconda Environment**
+
+It's recommended to create a new environment to avoid conflicts with existing packages.
+
+```bash
+conda create -n qudit-env python=3.8
+```
+
+Replace 3.8 with your preferred Python version (3.7 or higher).
+
+This creates an environment named qudit-env.
+
+2.2 **Activate the Environment**
+
+Activate the newly created environment:
+
+```bash
+conda activate qudit-env
+```
+
+On Windows, you might need to use:
+
+```bash
+activate qudit-env
+```
+
+2.3. **Install Cirq**
+
+Install Cirq and other dependencies within the environment:
+
+```bash
+conda install -c conda-forge cirq numpy matplotlib
+```
+
+Alternatively, you can use pip: see step 1.1.
+
+4. **Verify the Installation**
+
+```bash
+python -c "import cirq; print('Cirq version:', cirq.__version__)"
+```
+
+Ensure the version is 0.10.0 or higher for qudit support.
+
+5. **Clone the Qudit Library Repository**
+
+Clone the repository from GitHub:
+
+```git
+git clone link
+```
+
+6. **Navigate to the Library Directory**
+
+Change to the library directory:
+
+```
+cd qudit-cirq-library
+```
+
+7. **Install the Qudit Library**
+
+```
+pip install -e .
+```
+
+---
+
+## Dependencies
+
+The Qudit Cirq Library depends on:
+
+<ol>
+<li>Cirq (>=0.10.0) </li>
+<li>NumPy </li>
+<li> Matplotlib (optional) </li>
+</ol>
+These dependencies should have been installed in step 3. If you encounter issues, ensure they are installed:
+
+```
+pip install cirq numpy matplotlib
+```
+
+---
+
+## Fixing Common Dependency Issues
+
+<strong> Version Conflicts </strong> </br>
+
+Use the Anaconda environment (qudit-env) to manage dependencies and avoid conflicts with other Python packages.
+</br>
+
+Activate the environment:
+
+```
+conda activate qudit-env
+```
+
+List environments:
+
+```
+conda info --envs
+```
+
+<strong> Upgrading Packages </strong> </br>
+
+If you have older versions of the packages, upgrade them:
+
+```
+pip install --upgrade cirq numpy matplotlib
+```
