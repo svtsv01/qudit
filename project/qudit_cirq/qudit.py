@@ -136,3 +136,34 @@ def measure_qudits(state_vector: np.ndarray, qudit_order: List[cirq.Qid]) -> Dic
         sampled_index = sampled_index // d
 
     return measurement_results
+class quditPhaseGate(cirq.Gate):
+    def __init__(self, d, theta, exponent=1):
+        self.d = int(d)
+        self.theta = theta
+        self.exponent = exponent % self.d
+
+    def _qid_shape_(self):
+        return (self.d,)
+
+    def _unitary_(self):
+        phases = [np.exp(1j * self.exponent * self.theta * k) for k in range(self.d)]
+        return np.diag(phases)
+
+    def _circuit_diagram_info_(self, args):
+        return f"Phase({self.theta * self.exponent:.2f})"
+
+class quditSGate(quditPhaseGate):
+    def __init__(self, d, exponent=1):
+        theta_S = 2 * np.pi / d
+        super().__init__(d, theta_S, exponent)
+
+    def _circuit_diagram_info_(self, args):
+        return f"S(d={self.d})"
+
+class quditTGate(quditPhaseGate):
+    def __init__(self, d, exponent=1):
+        theta_T = np.pi / d
+        super().__init__(d, theta_T, exponent)
+
+    def _circuit_diagram_info_(self, args):
+        return f"T(d={self.d})"
