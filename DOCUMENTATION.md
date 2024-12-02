@@ -172,3 +172,11 @@ If you have older versions of the packages, upgrade them:
 ```
 pip install --upgrade cirq numpy matplotlib
 ```
+
+## Constraints and limitations
+
+//to do
+
+## Cloud-Computing Services
+
+//to do

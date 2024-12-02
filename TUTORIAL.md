@@ -19,7 +19,7 @@ qudit = cirq.LineQid(0, dimension=10)
 
 The Qudit Cirq Library provides implementations of common quantum gates.
 
-### Qudit Pauli-X Gate (quditXGate):
+### Qudit Pauli-X Gate (`quditXGate`):
 
 The qudit Pauli-X gate generalizes the bit-flip operation to
 𝑑 dimensions.
@@ -33,7 +33,7 @@ x_gate = quditXGate(d=3)
 
 Note: Apply .on() for the qudits.
 
-### Qudit Pauli-Z Gate (quditZGate):
+### Qudit Pauli-Z Gate (`quditZGate`):
 
 The qudit Pauli-Z gate generalizes the phase-flip operation.
 
@@ -47,7 +47,7 @@ z_gate = quditZGate(d=3)
 
 Note: Apply .on() for the qudits.
 
-### Qudit Hadamard Gate (quditHGate):
+### Qudit Hadamard Gate (`quditHGate`):
 
 The qudit Hadamard gate creates superpositions in
 𝑑 dimensions.
@@ -56,24 +56,56 @@ The qudit Hadamard gate creates superpositions in
 
 from qudit_cirq.qudit import quditHGate
 
-# Create a qudit Hadamard gate for dimension d=3
-h_gate = quditHGate(d=3)
+# Create a qudit Hadamard gate for dimension d=5
+h_gate = quditHGate(d=5)
 ```
 
 Note: Apply .on() for the qudits.
 
-### Qudit Controlled-NOT Gate (quditCNOTGate):
+### Qudit Controlled-NOT Gate (`quditCNOTGate`):
 
 The qudit Controlled-NOT gate generalises the CNOT operation.
 
 ```python
 from qudit_cirq.qudit import quditCNOTGate
 
-# Create a qudit CNOT gate for dimension d=3
-cnot_gate = quditCNOTGate(d=3)
+# Create a qudit CNOT gate for dimension d=4
+cnot_gate = quditCNOTGate(d=4)
 ```
 
 Note: The qudit CNOT gate acts on two qudits — a control and a target.
+
+### Qudit S Gate (`quditSGate`):
+
+The qudit S gate generalizes the phase gate to dimension
+𝑑.
+
+```python
+from qudit_cirq.qudit import quditSGate
+
+# Create a qudit S gate for dimension d=10
+s_gate = quditSGate(d=10)
+```
+
+Note: Apply .on() for the qudits.
+
+### Qudit T Gate (`quditSGate`):
+
+The qudit T gate introduces a dimension-dependent phase shift.
+
+```python
+from qudit_cirq.qudit import quditTGate
+
+# Create a qudit T gate for dimension d=11
+t_gate = quditTGate(d=11)
+
+```
+
+Note: Apply .on() for the qudits.
+
+### Qudit U Gate (`quditSGate`):
+
+// to do
 
 ## Building Circuits with Qudits
 
@@ -135,7 +167,9 @@ Also, dimensions for each qudit can be specified explicitly in `create_circuit` 
 ```python
 circuit, qudits, qudit_order = create_circuit(
     (3, quditHGate, 'q0'),
-    (4, quditHGate, 'q1')
+    (4, quditHGate, 'q1'),
+    (5, quditTGate, 'q3'),
+    (6, quditTGate, 'q4')
 )
 ```
 
