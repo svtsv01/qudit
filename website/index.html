@@ -1,0 +1,167 @@
+<!-- index.html -->
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Qudit Cirq Library</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <header>
+      <h1>Qudit Cirq Library</h1>
+    </header>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="tutorial.html">Tutorial</a>
+      <a href="documentation.html">Documentation</a>
+    </nav>
+    <main class="container">
+      <h2>Introduction</h2>
+      <p>
+        Quantum computing relies on the concept of <strong>qubits</strong>,
+        which are two-dimensional quantum systems. However,
+        <strong>qudits</strong> generalize this concept to
+        <em>d</em>-dimensional quantum systems, providing a richer computational
+        space and potential advantages in quantum algorithms.
+      </p>
+      <p>The Qudit Cirq Library enhances Cirq by:</p>
+      <ul>
+        <li>Supporting qudits of arbitrary dimensions (<em>d</em>).</li>
+        <li>Providing qudit gates for common quantum operations.</li>
+        <li>Utilities for creating and manipulating qudit circuits.</li>
+        <li>Simulation and measurement of qudit-based quantum circuits.</li>
+      </ul>
+
+      <h2>Features</h2>
+      <ul>
+        <li>
+          <strong>Qudit Support</strong>: Work with qudits of any dimension.
+        </li>
+        <li>
+          <strong>Generalized Gates</strong>: Implementations of qudit versions
+          of common quantum gates:
+          <ul>
+            <li>Pauli-X Gate</li>
+            <li>Pauli-Z Gate</li>
+            <li>Hadamard Gate</li>
+            <li>Controlled-NOT Gate</li>
+            <li>S Gate</li>
+            <li>T Gate</li>
+          </ul>
+        </li>
+        <li>
+          <strong>Circuit Utilities</strong>: Functions to build and manipulate
+          circuits with qudits, including a versatile
+          <code>create_circuit</code> function.
+        </li>
+        <li>
+          <strong>Measurement and Simulation</strong>: Support for measuring
+          qudits and simulating qudit circuits using Cirq's simulator.
+        </li>
+      </ul>
+
+      <h2>Installation</h2>
+      <h3>Prerequisites</h3>
+      <ul>
+        <li>
+          <strong>Python 3.7 or higher</strong>: Ensure you have a compatible
+          Python version installed.
+        </li>
+        <li><strong>pip</strong>: The Python package installer.</li>
+      </ul>
+
+      <h3>Installing Cirq</h3>
+      <ol>
+        <li>
+          <strong>Install Cirq via pip</strong>:
+          <pre><code>pip install cirq</code></pre>
+        </li>
+        <li>
+          <strong>Verify the installation</strong>:
+          <pre><code>python -c "import cirq; print('Cirq version:', cirq.__version__)"</code></pre>
+          Ensure the version is 0.10.0 or higher for qudit support.
+        </li>
+      </ol>
+
+      <h3>Installing the Qudit Cirq Library via Anaconda</h3>
+      <h4>Prerequisites</h4>
+      <ul>
+        <li>
+          <strong>Anaconda</strong> or <strong>Miniconda</strong> installed on
+          your system.
+        </li>
+        <li><strong>Git</strong> installed for cloning repositories.</li>
+      </ul>
+
+      <h3>Steps</h3>
+      <ol>
+        <li>
+          <strong>Create a New Anaconda Environment</strong>
+          <pre><code>conda create -n qudit-env python=3.8</code></pre>
+          Replace 3.8 with your preferred Python version (3.7 or higher).
+        </li>
+        <li>
+          <strong>Activate the Environment</strong>
+          <pre><code>conda activate qudit-env</code></pre>
+          On Windows:
+          <pre><code>activate qudit-env</code></pre>
+        </li>
+        <li>
+          <strong>Install Cirq and Dependencies</strong>
+          <pre><code>conda install -c conda-forge cirq numpy matplotlib</code></pre>
+          Alternatively, use pip:
+          <pre><code>pip install cirq numpy matplotlib</code></pre>
+        </li>
+        <li>
+          <strong>Verify the Installation</strong>
+          <pre><code>python -c "import cirq; print('Cirq version:', cirq.__version__)"</code></pre>
+          Ensure the version is 0.10.0 or higher.
+        </li>
+        <li>
+          <strong>Clone the Qudit Library Repository</strong>
+          <pre><code>git clone &lt;repository_link&gt;</code></pre>
+        </li>
+        <li>
+          <strong>Navigate to the Library Directory</strong>
+          <pre><code>cd qudit-cirq-library</code></pre>
+        </li>
+        <li>
+          <strong>Install the Qudit Library</strong>
+          <pre><code>pip install -e .</code></pre>
+        </li>
+      </ol>
+
+      <h2>Dependencies</h2>
+      <p>The Qudit Cirq Library depends on:</p>
+      <ol>
+        <li>Cirq (>=0.10.0)</li>
+        <li>NumPy</li>
+        <li>Matplotlib (optional)</li>
+      </ol>
+      <p>Ensure these dependencies are installed:</p>
+      <pre><code>pip install cirq numpy matplotlib</code></pre>
+
+      <h2>Fixing Common Dependency Issues</h2>
+      <h3>Version Conflicts</h3>
+      <p>
+        Use the Anaconda environment (<code>qudit-env</code>) to manage
+        dependencies and avoid conflicts with other Python packages.
+      </p>
+      <pre><code>conda activate qudit-env</code></pre>
+      <p>List environments:</p>
+      <pre><code>conda info --envs</code></pre>
+
+      <h3>Upgrading Packages</h3>
+      <p>If you have older versions of the packages, upgrade them:</p>
+      <pre><code>pip install --upgrade cirq numpy matplotlib</code></pre>
+
+      <h2>Constraints and Limitations</h2>
+      <p>// To be added</p>
+
+      <h2>Cloud-Computing Services</h2>
+      <p>// To be added</p>
+
+      <footer>&copy; 2023 Qudit Cirq Library</footer>
+    </main>
+  </body>
+</html>
