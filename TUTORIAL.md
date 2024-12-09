@@ -75,37 +75,43 @@ cnot_gate = quditCNOTGate(d=4)
 
 Note: The qudit CNOT gate acts on two qudits — a control and a target.
 
-### Qudit S Gate (`quditSGate`):
+### Qudit Phase Gate (`quditPhaseGate`):
 
-The qudit S gate generalizes the phase gate to dimension
-𝑑.
+The qudit Phase gate applies a dimension-dependent phase factor to the computational basis states, serving as one of the generators of the Clifford group in higher dimensions. For a prime dimension d≥3, the Phase gate is defined as:
+
+$$
+P\ket{s} = \omega^{s(s-1)/2} \ket{s},
+$$
+
+where ω = exp(2πi/d).
 
 ```python
-from qudit_cirq.qudit import quditSGate
+from qudit_cirq.qudit import quditPhaseGate
 
-# Create a qudit S gate for dimension d=10
-s_gate = quditSGate(d=10)
+# Create a qudit Phase gate for dimension d=5 (prime and odd)
+phase_gate = quditPhaseGate(d=5)
 ```
 
 Note: Apply .on() for the qudits.
 
-### Qudit T Gate (`quditSGate`):
+### Qudit $U_{\pi/8}$ Gate (`quditU8Gate`):
 
-The qudit T gate introduces a dimension-dependent phase shift.
+The U\_{π/8} gate generalizes the qubit π/8 gate to qudits. For a prime dimension d
+and parameters (γ, z, ε) with γ ≠ 0, it introduces dimension-dependent phases
+computed via a number-theoretic formula:
+
+$$
+U = \sum_{j = 0}^{d-1} \omega^{v_j} \ket{j}\bra{j}
+$$
 
 ```python
-from qudit_cirq.qudit import quditTGate
+from qudit_cirq.qudit import quditU8Gate
 
-# Create a qudit T gate for dimension d=11
-t_gate = quditTGate(d=11)
-
+# Create a qudit U_{π/8} gate for dimension d=7
+u8_gate = quditU8Gate(d=7)
 ```
 
 Note: Apply .on() for the qudits.
-
-### Qudit U Gate (`quditSGate`):
-
-// to do
 
 ## Building Circuits with Qudits
 

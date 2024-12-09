@@ -24,6 +24,8 @@ The qudit Cirq library enhances Cirq by:
   - Pauli-Z Gate
   - Hadamard Gate
   - Controlled-NOT Gate
+  - Phase Gate
+  - $U_{\pi/8}$ Gate
 - **Circuit Utilities**: Functions to build and manipulate circuits with qudits, including a versatile `create_circuit` function.
 - **Measurement and Simulation**: Support for measuring qudits and simulating qudit circuits using Cirq's simulator.
 
@@ -180,3 +182,11 @@ pip install --upgrade cirq numpy matplotlib
 ## Cloud-Computing Services
 
 //to do
+
+For qudit-based quantum simulations and library usage, leveraging cloud computing services can help ensure scalability, cost-effectiveness, and ease of collaboration. Services like <strong> Amazon Web Services (AWS), Google Cloud Platform (GCP), or Microsoft Azure </strong> can provide high-performance compute instances to run complex simulations efficiently.
+
+## References
+
+[1]
+[2]
+[3]

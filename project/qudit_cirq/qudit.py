@@ -1,6 +1,7 @@
 # This file contains the implemenation of the qudit gates.
 
 from typing import Dict, List
+from sympy import Mod, mod_inverse
 import cirq
 import numpy as np
 from typing import Tuple
@@ -136,34 +137,83 @@ def measure_qudits(state_vector: np.ndarray, qudit_order: List[cirq.Qid]) -> Dic
         sampled_index = sampled_index // d
 
     return measurement_results
-class quditPhaseGate(cirq.Gate):
-    def __init__(self, d, theta, exponent=1):
-        self.d = int(d)
-        self.theta = theta
-        self.exponent = exponent % self.d
+def is_prime(n):
+    if n < 2:
+        return False
+    if n in (2, 3):
+        return True
+    if n % 2 == 0:
+        return False
+    r = int(n**0.5)
+    for i in range(3, r+1, 2):
+        if n % i == 0:
+            return False
+    return True
+
+class quditU8Gate(cirq.Gate):
+    def __init__(self, d, gamma=2, z=1, eps=0):
+        super().__init__()
+        if not is_prime(d):
+            raise ValueError(f"Dimension d={d} is not prime. U_{pi/8} gate requires a prime dimension.")
+        if gamma == 0:
+            raise ValueError("gamma must not be zero.")
+
+        self.d = d
+        self.gamma = gamma
+        self.z = z
+        self.eps = eps
+
+        self.vks = [0]*d
+
+        if d == 3:
+            self.vks = [0, 1, 8]
+        else:
+            try:
+                inv_12 = mod_inverse(12, d)
+            except ValueError:
+                raise ValueError(f"Inverse of 12 mod {d} does not exist. Choose a prime d that does not divide 12.")
+
+            for i in range(1, d):
+                a = inv_12 * i * (self.gamma + i*(6*self.z + (2*i - 3)*self.gamma)) + self.eps*i
+                self.vks[i] = Mod(a, d)
+        print(self.vks)   
+        sum_vks = Mod(sum(self.vks), d)
+        if sum_vks != 0:
+            raise ValueError(f"Sum of v_k's is not 0 mod {d}. Got {sum_vks}. Check parameters.")
 
     def _qid_shape_(self):
         return (self.d,)
 
     def _unitary_(self):
-        phases = [np.exp(1j * self.exponent * self.theta * k) for k in range(self.d)]
-        return np.diag(phases)
+        omega = np.exp(2j * np.pi / self.d)
+        u_matrix = np.zeros((self.d, self.d), dtype=complex)
+        for j in range(self.d):
+            u_matrix[j, j] = omega ** self.vks[j]
+        return u_matrix
 
     def _circuit_diagram_info_(self, args):
-        return f"Phase({self.theta * self.exponent:.2f})"
+        return f"U8(d={self.d})"
 
-class quditSGate(quditPhaseGate):
-    def __init__(self, d, exponent=1):
-        theta_S = 2 * np.pi / d
-        super().__init__(d, theta_S, exponent)
+
+class quditPhaseGate(cirq.Gate):
+    def __init__(self, d):
+        super().__init__()
+        if not is_prime(d):
+            raise ValueError(f"d={d} is not prime. Phase gate requires a prime dimension.")
+        if d == 2:
+            raise ValueError("Phase gate is defined for odd prime d >= 3.")
+        self.d = d
+
+    def _qid_shape_(self):
+        return (self.d,)
+
+    def _unitary_(self):
+        omega = np.exp(2j * np.pi / self.d)
+        p_matrix = np.zeros((self.d, self.d), dtype=complex)
+        for s in range(self.d):
+            phase_exp = (s*(s-1))//2
+            p_matrix[s, s] = omega**phase_exp
+        return p_matrix
 
     def _circuit_diagram_info_(self, args):
-        return f"S(d={self.d})"
-
-class quditTGate(quditPhaseGate):
-    def __init__(self, d, exponent=1):
-        theta_T = np.pi / d
-        super().__init__(d, theta_T, exponent)
-
-    def _circuit_diagram_info_(self, args):
-        return f"T(d={self.d})"
+        return f"P(d={self.d})"
