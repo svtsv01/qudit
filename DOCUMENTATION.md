@@ -52,6 +52,12 @@ pip install cirq
 python -c "import cirq; print('Cirq version:', cirq.__version__)"
 ```
 
+<!-- In my case this command, the above command did not work. Instead this one worked:
+
+python3 -c "import cirq; print('Cirq version:', cirq.__version__)"
+
+-->
+
 Ensure the version is 0.10.0 or higher for qudit support.
 
 2. **Installing the Qudit Cirq Library via Anaconda**
@@ -99,6 +105,11 @@ conda install -c conda-forge cirq numpy matplotlib
 
 Alternatively, you can use pip: see step 1.1.
 
+<!--
+- I think this is a bit confusing. You can make it into two ways to install and number them separately: install via anaconda, or install via pip
+- Also, the install cirq part is duplicate
+-->
+
 4. **Verify the Installation**
 
 ```bash
@@ -115,6 +126,12 @@ Clone the repository from GitHub:
 git clone link
 ```
 
+<!-- 
+Make sure to update the link
+-->
+
+
+
 6. **Navigate to the Library Directory**
 
 Change to the library directory:
@@ -129,6 +146,11 @@ cd qudit-cirq-library
 pip install -e .
 ```
 
+<!--
+This does not work for me. I get the following error:
+
+ERROR: file:///PATH-TO-CLONED-REPO/qudit does not appear to be a Python project: neither 'setup.py' nor 'pyproject.toml' found.
+-->
 ---
 
 ## Dependencies
@@ -145,7 +167,7 @@ These dependencies should have been installed in step 3. If you encounter issues
 ```
 pip install cirq numpy matplotlib
 ```
-
+<!-- again this is a repitition of the above. These things have been installed. -->
 ---
 
 ## Fixing Common Dependency Issues
