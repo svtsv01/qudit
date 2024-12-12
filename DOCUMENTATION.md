@@ -103,6 +103,10 @@ Install Cirq and other dependencies within the environment:
 conda install -c conda-forge cirq numpy matplotlib
 ```
 
+<!-- My installation is stuck at this step. Also, if I have already installed cirq, numpy, matplotlib, why do I have to install them again? 
+At this point it is also a good idea to have a "hello world" example to check if the environment is running correctly
+-->
+
 Alternatively, you can use pip: see step 1.1.
 
 <!--
