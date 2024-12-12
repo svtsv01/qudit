@@ -1,12 +1,12 @@
 # Tutorial
 
-This tutorial will provide you a clear guidline on how to use the Qudit Cirq Library, including creating qudits, applying qudit gates, building circuits, and simulating quantum computations with qudits.
+This tutorial provides a guide on how to use the Qudit Cirq Library, including creating qudits, applying qudit gates, building circuits, and simulating quantum computations with qudits.
 
 ---
 
 ## Creating Qudits
 
-Qudits are created using Cirq's `LineQid` class with a specified dimension. Here's how you can create a qudit of dimension - 𝑑:
+Qudits are created using Cirq's `LineQid` class with a specified dimension. Here's how you can create a qudit of dimension $d$:
 
 ```python
 import cirq
@@ -17,12 +17,15 @@ qudit = cirq.LineQid(0, dimension=10)
 
 ## Qudit Gates
 
-The Qudit Cirq Library provides implementations of common quantum gates.
+The Qudit Cirq Library provides implementations of common quantum gates. Assume that we have the computational basis $\{\ket{s} : s \in \mathbb{Z}_d\}$ of $\mathbb{C}^d$, where $\ket{s}$ is a a column vector of $d$ dimensions with zeros everywhere except at position $s$, where it is $1$. 
 
-### Qudit Pauli-X Gate (`quditXGate`):
+### Qudit Pauli-$X$ Gate (`quditXGate`):
 
-The qudit Pauli-X gate generalizes the bit-flip operation to
-𝑑 dimensions.
+The qudit Pauli-$X$ gate generalizes the bit-flip operation to
+$𝑑$ dimensions. Its operation on the computational basis state $\ket{s}$ is defined as:
+$$
+X\ket{s} \rightarrow \ket{s + 1}
+$$
 
 ```python
 from qudit_cirq.qudit import quditXGate
