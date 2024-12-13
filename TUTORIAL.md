@@ -8,6 +8,10 @@ This tutorial provides a guide on how to use the Qudit Cirq Library, including c
 
 Qudits are created using Cirq's `LineQid` class with a specified dimension. Here's how you can create a qudit of dimension $d$:
 
+TODO:
+- [ ] is this qudit $\ket{0}$?
+- [ ] what is `0` in `LineQid`?
+
 ```python
 import cirq
 
@@ -24,7 +28,7 @@ The Qudit Cirq Library provides implementations of common quantum gates. Assume 
 The qudit Pauli-$X$ gate generalizes the bit-flip operation to
 $𝑑$ dimensions. Its operation on the computational basis state $\ket{s}$ is defined as:
 $$
-X\ket{s} \rightarrow \ket{s + 1}
+X\ket{s} = \ket{s + 1}
 $$
 
 ```python
@@ -34,11 +38,18 @@ from qudit_cirq.qudit import quditXGate
 x_gate = quditXGate(d=3)
 ```
 
-Note: Apply .on() for the qudits.
+This can be applied on a qudit using `.on()`. 
 
-### Qudit Pauli-Z Gate (`quditZGate`):
+TODO:
 
-The qudit Pauli-Z gate generalizes the phase-flip operation.
+- [ ] Does the dimension needs to be specified even if it is evident from the qudit it is applied on?
+
+### Qudit Pauli-$Z$ Gate (`quditZGate`):
+
+The qudit Pauli-$Z$ gate generalizes the phase-flip operation. Its operation on the computational basis state $\ket{s}$ is defined as:
+$$
+Z \ket{s} = \omega^s \ket{s}
+$$
 
 ```python
 
@@ -48,12 +59,18 @@ from qudit_cirq.qudit import quditZGate
 z_gate = quditZGate(d=3)
 ```
 
-Note: Apply .on() for the qudits.
+This can be applied on a qudit using `.on()`. 
 
 ### Qudit Hadamard Gate (`quditHGate`):
 
-The qudit Hadamard gate creates superpositions in
-𝑑 dimensions.
+The qudit Hadamard gate sends computational basis states into equal superpositions in
+$d$ dimensions. Its operation on the computational basis state $\ket{s}$ is defined as:
+
+$$
+H\ket{s} = \frac{1}{\sqrt{d}}\sum_{j = 0}^{d-1} \omega^{js} \ket{j}
+$$
+
+See for example Yang et al. [2020] (https://doi.org/10.3389/fphy.2020.589504).
 
 ```python
 
@@ -63,11 +80,15 @@ from qudit_cirq.qudit import quditHGate
 h_gate = quditHGate(d=5)
 ```
 
-Note: Apply .on() for the qudits.
+This can be applied on a qudit using `.on()`. 
 
 ### Qudit Controlled-NOT Gate (`quditCNOTGate`):
 
-The qudit Controlled-NOT gate generalises the CNOT operation.
+The qudit Controlled-NOT gate generalises the CNOT operation. This is a two qudit operation with two inputs, a control qudit and a target qudit. Given two computational basis states its action is defined as:
+
+$$
+\ket{r}\ket{s} \rightarrow \ket{r}\ket{r + s} = \ket{r} X^r \ket{s}
+$$
 
 ```python
 from qudit_cirq.qudit import quditCNOTGate
@@ -76,12 +97,17 @@ from qudit_cirq.qudit import quditCNOTGate
 cnot_gate = quditCNOTGate(d=4)
 ```
 
-Note: The qudit CNOT gate acts on two qudits — a control and a target.
+This can be applied on on a qudit using `.on()`. In this case two qudits need to be specified, target and control, respectively.
 
-### Qudit S Gate (`quditSGate`):
+### Qudit $S$ Gate (`quditSGate`):
 
-The qudit S gate generalizes the phase gate to dimension
-𝑑.
+The qudit S gate generalizes the phase gate to dimension $d$. Its operation on the computational basis state $\ket{s}$ is defined as:
+
+$$
+S\ket{s} = \omega^{s(s+p_d)/2} \ket{s},
+$$
+
+where $p_d = 1$ if $d$ is odd, and $0$ otherwise. This is one of the generators of the qudit Clifford group, alongwith the Pauli-$Z$ gate, the qudit Hadamard gate and the controlled-$Z$ gate. See for example Jafarzadeh et al [2019] (https://doi.org/10.48550/arXiv.1911.08162). 
 
 ```python
 from qudit_cirq.qudit import quditSGate
@@ -90,7 +116,22 @@ from qudit_cirq.qudit import quditSGate
 s_gate = quditSGate(d=10)
 ```
 
-Note: Apply .on() for the qudits.
+This can be applied on a qudit using `.on()`. 
+
+### Qudit Controlled-$Z$ Gate (`quditCZGate`):
+
+The qudit Controlled-$Z$ gate generalises the same operation on qubits. This is a two qudit operation with two inputs, a control qudit and a target qudit. Given two computational basis states its action is defined as:
+
+$$
+\ket{r}\ket{s} \rightarrow \omega^{rs}\ket{r}\ket{s} = \ket{r}Z^r \ket{s}
+$$
+
+This is one of the generators of the qudit Clifford group, alongwith the Pauli-$Z$ gate, the qudit Hadamard gate and the controlled-$Z$ gate. See for example Jafarzadeh et al [2019] (https://doi.org/10.48550/arXiv.1911.08162). 
+
+TODO:
+
+- [ ] Can we please add this gates implementation as well? I missed it. 
+- [ ] Aren't the following two gates the same? The pi-by-eight game I mentioned?
 
 ### Qudit T Gate (`quditSGate`):
 
