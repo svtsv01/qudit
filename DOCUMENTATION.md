@@ -26,6 +26,7 @@ This qudit Cirq library enhances [Google's Cirq](https://quantumai.google/cirq) 
   - Controlled-NOT Gate
   - Pi-Over-Eight Gate (or T Gate)
   - Phase Gate
+  - Qudit Controlled-NOT Gate
 - **Circuit Utilities**: Functions to build and manipulate circuits with qudits, including a versatile `create_circuit` function.
 - **Measurement and Simulation**: Support for measuring qudits and simulating qudit circuits using Cirq's simulator.
 
@@ -40,6 +41,8 @@ This qudit Cirq library enhances [Google's Cirq](https://quantumai.google/cirq) 
 
 ### Installing Cirq
 
+<h3> Option 1: </h3>
+
 1.1 **Install Cirq via pip**:
 
 ```bash
@@ -52,13 +55,23 @@ pip install cirq
 python -c "import cirq; print('Cirq version:', cirq.__version__)"
 ```
 
-<!-- In my case this command, the above command did not work. Instead this one worked:
+Ensure the version is 0.10.0 or higher for qudit support.
 
-python3 -c "import cirq; print('Cirq version:', cirq.__version__)"
+1.3 **Clone the Qudit Library Repository**
 
+Clone the repository from GitHub:
+
+```git
+git clone link
+```
+
+<!--
+Make sure to update the link
 -->
 
-Ensure the version is 0.10.0 or higher for qudit support.
+1.4 Now the new notebook can be created.
+
+If you have any issues go to <strong> step 2 </strong> and try to set up everything using Anaconda Navigator.
 
 2. **Installing the Qudit Cirq Library via Anaconda**
 

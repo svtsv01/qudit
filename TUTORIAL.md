@@ -11,12 +11,9 @@ Qudits are created using Cirq's `LineQid` class with a specified dimension. Here
 TODO:
 
 - [ ] is this qudit $\ket{0}$?
-
-By default, when you simulate a circuit with this qudit and no operations have been applied, the simulator will treat it as starting in the $\ket{0}$ state. However, `LineQid` itself does not encode the state—it's merely an identifier. The initial state $\ket{0}$ is a convention used by the simulator.
-
 - [ ] what is `0` in `LineQid`?
 
-The `0` is the index (or label) of the qudit along a line of qudits. It indicates that this qudit is the "0th qudit" in a linear arrangement, not that it is in the state $\ket{0}$. The dimension (`10` for example) specifies that this qudit has ten levels, from $\ket{0}$ to $\ket{9}$.
+The fine code creates the qudit of dimension 𝑑 = 10
 
 ```python
 import cirq
@@ -107,7 +104,7 @@ cnot_gate = quditCNOTGate(d=4)
 
 This can be applied on on a qudit using `.on()`. In this case two qudits need to be specified, target and control, respectively.
 
-### Qudit $S$ Gate (`quditSGate`):
+### Qudit $S$ Gate (`quditPhaseGate`):
 
 The qudit S gate generalizes the phase gate to dimension $d$. Its operation on the computational basis state $\ket{s}$ is defined as:
 
