@@ -201,8 +201,6 @@ pip install --upgrade cirq numpy matplotlib
 
 ## Cloud-Computing Services
 
-//to do
-
 For qudit-based quantum simulations and library usage, leveraging cloud computing services can help ensure scalability, cost-effectiveness, and ease of collaboration. Services like <strong> Amazon Web Services (AWS), Google Cloud Platform (GCP), or Microsoft Azure </strong> can provide high-performance compute instances to run complex simulations efficiently.
 
 ## References
