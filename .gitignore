@@ -1,0 +1,46 @@
+# Python byte-compiled files
+__pycache__/
+*.py[cod]
+
+# Build and distribution artifacts
+build/
+dist/
+*.egg-info/
+.eggs/
+
+# Virtual environment directories
+venv/
+.venv/
+env/
+ENV/
+env.bak/
+venv.bak/
+
+
+# Jupyter Notebook checkpoints
+.ipynb_checkpoints/
+
+# Unit test / coverage reports
+.coverage
+coverage.xml
+htmlcov/
+.pytest_cache/
+.tox/
+
+# Mypy type checking cache
+.mypy_cache/
+
+# Logs and temporary files
+*.log
+*.tmp
+*.out
+
+# Editor and IDE configuration files
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# OS-specific files
+.DS_Store
+Thumbs.db
