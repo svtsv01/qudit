@@ -136,17 +136,17 @@ This is one of the generators of the qudit Clifford group, alongwith the Pauli-$
 TODO:
 
 - [ ] Can we please add this gates implementation as well? I missed it. Yes
-- [ ] Aren't the following two gates the same? The pi-by-eight game I mentioned?
 
 ### Qudit $U_{\pi/8}$ Gate (`quditU8Gate`):
 
-The U\_{π/8} gate generalizes the qubit π/8 gate to qudits. For a prime dimension d
-and parameters (γ, z, ε) with γ ≠ 0, it introduces dimension-dependent phases
-computed via a number-theoretic formula:
+The $U_{\pi/8}$ gate generalizes the qubit $\pi/8$ gate to qudits (called the $T$ gate in the classic text from Chuang and Nielsen [2010]). The extension to qudits is defined for a prime dimension $d$. The general form of the gate is defined as:
 
 $$
 U = \sum_{j = 0}^{d-1} \omega^{v_j} \ket{j}\bra{j}
 $$
+
+The exact values of the $v_j$'s depends on the dimension $d$. Explicit formula to compuate these values for $d = 3$ and $d \geq 5$ (remember $d$ should be a prime) are given in Howard and Vala [2012] (
+https://doi.org/10.48550/arXiv.1206.1598). Our implementation of this gate follows their construction.
 
 ```python
 from qudit_cirq.qudit import quditU8Gate
@@ -155,7 +155,7 @@ from qudit_cirq.qudit import quditU8Gate
 u8_gate = quditU8Gate(d=7)
 ```
 
-Note: Apply .on() for the qudits.
+This can be applied on a qudit using `.on()`.
 
 ## Building Circuits with Qudits
 
