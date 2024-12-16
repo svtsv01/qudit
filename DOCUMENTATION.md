@@ -196,11 +196,9 @@ pip install --upgrade cirq numpy matplotlib
 
 ## Constraints and limitations
 
-//to do
+While there are no hard-coded limits on the number of qudits, their dimensions, or the number of gates used, practical constraints arise from computational resources. Higher dimensions and larger numbers of qudits or operations significantly increase memory usage and simulation time. It’s generally advisable to keep the system size and gate count as small as possible for efficient simulations. For certain specialized gate the dimension must be prime, and parameters must be chosen carefully to ensure well-defined modular arithmetic.
 
 ## Cloud-Computing Services
-
-//to do
 
 For qudit-based quantum simulations and library usage, leveraging cloud computing services can help ensure scalability, cost-effectiveness, and ease of collaboration. Services like <strong> Amazon Web Services (AWS), Google Cloud Platform (GCP), or Microsoft Azure </strong> can provide high-performance compute instances to run complex simulations efficiently.
 
