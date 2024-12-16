@@ -217,3 +217,28 @@ class quditPhaseGate(cirq.Gate):
 
     def _circuit_diagram_info_(self, args):
         return f"P(d={self.d})"
+    
+class quditCZGate(cirq.Gate):
+    def __init__(self, d: int):
+        super().__init__()
+        self.d = d
+
+    def _qid_shape_(self):
+        return (self.d, self.d)
+
+    def _unitary_(self):
+        # Create a d^2 x d^2 matrix
+        size = self.d ** 2
+        cz_matrix = np.zeros((size, size), dtype=complex)
+        omega = np.exp(2j * np.pi / self.d)
+
+        for r in range(self.d):
+            for s in range(self.d):
+                idx = r * self.d + s
+                # Diagonal element
+                cz_matrix[idx, idx] = omega ** (r * s)
+
+        return cz_matrix
+
+    def _circuit_diagram_info_(self, args):
+        return cirq.CircuitDiagramInfo(wire_symbols=(f"@(d={self.d})", f"Z(d={self.d})"))

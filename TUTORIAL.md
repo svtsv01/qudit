@@ -11,7 +11,12 @@ Qudits are created using Cirq's `LineQid` class with a specified dimension. Here
 TODO:
 
 - [ ] is this qudit $\ket{0}$?
+
+By default, when you simulate a circuit with this qudit and no operations have been applied, the simulator will treat it as starting in the $\ket{0}$ state. However, `LineQid` itself does not encode the state—it's merely an identifier. The initial state $\ket{0}$ is a convention used by the simulator.
+
 - [ ] what is `0` in `LineQid`?
+
+The `0` is the index (or label) of the qudit along a line of qudits. It indicates that this qudit is the "0th qudit" in a linear arrangement, not that it is in the state $\ket{0}$. The dimension (`10` for example) specifies that this qudit has ten levels, from $\ket{0}$ to $\ket{9}$.
 
 ```python
 import cirq
@@ -44,7 +49,7 @@ This can be applied on a qudit using `.on()`.
 
 TODO:
 
-- [ ] Does the dimension needs to be specified even if it is evident from the qudit it is applied on?
+- [ ] Does the dimension needs to be specified even if it is evident from the qudit it is applied on? Yes they should be specific
 
 ### Qudit Pauli-$Z$ Gate (`quditZGate`):
 
@@ -133,7 +138,7 @@ This is one of the generators of the qudit Clifford group, alongwith the Pauli-$
 
 TODO:
 
-- [ ] Can we please add this gates implementation as well? I missed it.
+- [ ] Can we please add this gates implementation as well? I missed it. Yes
 - [ ] Aren't the following two gates the same? The pi-by-eight game I mentioned?
 
 ### Qudit $U_{\pi/8}$ Gate (`quditU8Gate`):

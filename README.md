@@ -18,9 +18,7 @@ pip
 @misc{Qudit Library,
 title={ProjectName: A Library for Google's Cirq framework},
 author={Svyatoslav Kushnarev},
-year={2024},
-eprint={2409.xxxxx},
-archivePrefix={arXiv},
+year={2024},,,
 primaryClass={[subject-area]},
 url={??????},
 }
