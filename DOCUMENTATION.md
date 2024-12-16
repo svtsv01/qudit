@@ -26,6 +26,7 @@ This qudit Cirq library enhances [Google's Cirq](https://quantumai.google/cirq) 
   - Controlled-NOT Gate
   - Pi-Over-Eight Gate (or T Gate)
   - Phase Gate
+  - Qudit Controlled-NOT Gate
 - **Circuit Utilities**: Functions to build and manipulate circuits with qudits, including a versatile `create_circuit` function.
 - **Measurement and Simulation**: Support for measuring qudits and simulating qudit circuits using Cirq's simulator.
 
