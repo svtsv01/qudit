@@ -12,8 +12,9 @@ TODO:
 
 - [ ] is this qudit $\ket{0}$?
 - [ ] what is `0` in `LineQid`?
+- [ ] is there a way to initial a qudit to $\ket{s}$ for any $s \in \mathbb{Z}_d$?
 
-The fine code creates the qudit of dimension 𝑑 = 10
+The following code creates the qudit $\ket{0}$ of dimension $𝑑 = 10$
 
 ```python
 import cirq
@@ -102,6 +103,10 @@ from qudit_cirq.qudit import quditCNOTGate
 cnot_gate = quditCNOTGate(d=4)
 ```
 
+TODO (IMPORTANT):
+
+- [ ] What you have implemented is the $X^\dagger$ gate that sends $\ket{r}\ket{s} \rightarrow \ket{r}\ket{r - s}$. For example with $d = 3$, this will send $\ket{1}\ket{0} \rightarrow \ket{1}\ket{2}$. Instead, it should send  $\ket{1}\ket{0} \rightarrow \ket{1}\ket{1}$.
+
 This can be applied on on a qudit using `.on()`. In this case two qudits need to be specified, target and control, respectively.
 
 ### Qudit $S$ Gate (`quditPhaseGate`):
@@ -163,7 +168,7 @@ There are two primary methods for building circuits with qudits:
 
 ### Method 1: Manual Construction
 
-Manually create circuits by explicitly defining qudits and appending gates.
+Manually create circuits by explicitly defining qudits and appending gates. Gates are appended to the circuit using the `.append()` method.
 
 ```python
 import cirq
@@ -179,13 +184,26 @@ circuit.append(quditHGate(d=3).on(qudit1))
 circuit.append(quditCNOTGate(d=3).on(qudit1, qudit2))
 ```
 
-Gates are appended to the circuit using the .append() method.
+You can view the circuit using the `print` command.
 
-### Method 2: Using `create_circuit` Function
+```python
+print(circuit)
+```
+
+This outputs the following:
+
+```
+0 (d=3): ───H(d=3)───C(d=3)───
+                     │
+1 (d=3): ────────────X(d=3)───
+```
+
+### Method 2: Using the `create_circuit` Function
 
 Use the `create_circuit` function for a more concise syntax when building circuits.
 
 ```python
+from qudit_cirq.circuit_builder import create_circuit
 from qudit_cirq.qudit import quditHGate, quditCNOTGate, qudit_measure
 
 # Build the circuit using create_circuit
@@ -196,23 +214,37 @@ circuit, qudits, qudit_order = create_circuit(
     (qudit_measure, 'q0'),
     (qudit_measure, 'q1')
 )
+
+print(circuit)
+```
+
+This yields:
+
+```
+q0 (d=3): ───H(d=3)───C(d=3)───M('m_q0')───
+                      │
+q1 (d=3): ────────────X(d=3)───M('m_q1')───
 ```
 
 - <strong> Arguments: </strong>
 
-1.  The function accepts a variable number of arguments (\*args).
+1.  The function accepts a variable number of arguments: `\*args`.
 2.  Dimension is set by passing an integer.
 3.  Gates are specified as tuples with the gate type and qudit names.
 
 - <strong> Returns:</strong>
 
-1.  circuit: The constructed cirq.Circuit.
-2.  qudits: A dictionary mapping qudit names to cirq.Qid objects.
+1.  circuit: The constructed `cirq.Circuit`.
+2.  qudits: A dictionary mapping qudit names to `cirq.Qid` objects.
 3.  qudit_order: A list of qudits in the order they were added.
 
-### Extended Usage of `create_circuit` Function:
+TODO
 
-Also, dimensions for each qudit can be specified explicitly in `create_circuit` function:
+- [ ] Can you specify an example or reason why the order of the qudits might be of importance?
+
+### Extended Usage of the `create_circuit` Function:
+
+If needed, the dimensions for each qudit can be specified explicitly in the `create_circuit` function:
 
 ```python
 circuit, qudits, qudit_order = create_circuit(
@@ -225,18 +257,28 @@ circuit, qudits, qudit_order = create_circuit(
 
 ## Measurement and Simulation
 
-You can measure the qudits and simulate the circuit.
+Once you have created a circuit, you can measure qudits and simulate the circuit.
 
 ### Measuring Qudits
 
-For manual circuits:
+For manual circuits use `.append()` and `cirq.measure()` to add measurements to specified qudits. For instance, add the following to the manually constructed circuit above:
 
 ```python
 circuit.append(cirq.measure(qudit1, key='q1'))
 circuit.append(cirq.measure(qudit2, key='q2'))
+
+print(circuit)
 ```
 
-For circuits built with create_circuit, measurements are included during construction.
+This yields:
+
+```
+0 (d=3): ───H(d=3)───C(d=3)───M('q1')───
+                     │
+1 (d=3): ────────────X(d=3)───M('q2')───
+```
+
+For circuits built with create_circuit, measurements are included during construction as shown above.
 
 ### Simulating the Circuit
 
@@ -251,66 +293,17 @@ result = simulator.run(circuit, repetitions=10)
 print(result)
 ```
 
+For the circuit above, this yields:
+
+```
+q1=2200102011
+q2=2200102011
+```
+
 - Note:
 
 1. `repetitions=10` specifies the number of times the circuit is run.
 2. result contains the measurement outcomes from all runs.
-
-## Examples
-
-### Example 1: Qudit GHZ State Preparation (Manual Construction)
-
-Prepare a GHZ state using qudits of dimension 3.
-
-```python
-import cirq
-from qudit_cirq.qudit import quditHGate, quditCNOTGate
-
-# Parameters
-d = 3  # Qudit dimension
-n_qudits = 3  # Number of qudits
-
-# Create qudits
-qudits = [cirq.LineQid(i, dimension=d) for i in range(n_qudits)]
-
-# Build the circuit
-circuit = cirq.Circuit()
-circuit.append(quditHGate(d).on(qudits[0]))
-for i in range(1, n_qudits):
-    circuit.append(quditCNOTGate(d).on(qudits[i - 1], qudits[i]))
-
-# Measure
-circuit.append(cirq.measure(*qudits, key='result'))
-
-# Simulate
-simulator = cirq.Simulator()
-result = simulator.run(circuit, repetitions=10)
-print(result)
-```
-
-### Example 2: Qudit GHZ State Preparation (`Using create_circuit Function`)
-
-Prepare the same GHZ state using the `create_circuit` function.
-
-```python
-from qudit_cirq.qudit import quditHGate, quditCNOTGate, qudit_measure
-
-# Build the circuit using create_circuit
-circuit, qudits, qudit_order = create_circuit(
-    3,  # Set dimension d=3
-    (quditHGate, 'q0'),
-    (quditCNOTGate, ['q0', 'q1']),
-    (quditCNOTGate, ['q1', 'q2']),
-    (qudit_measure, 'q0'),
-    (qudit_measure, 'q1'),
-    (qudit_measure, 'q2')
-)
-
-# Simulate
-simulator = cirq.Simulator()
-result = simulator.run(circuit, repetitions=10)
-print(result)
-```
 
 ## Utility Functions
 
@@ -446,4 +439,60 @@ Output:
 
 ```
 [0 1 0 0 0 0 0 0 0]
+```
+
+## Examples
+
+### Example 1: Qudit GHZ State Preparation (Manual Construction)
+
+Prepare a GHZ state using qudits of dimension 3.
+
+```python
+import cirq
+from qudit_cirq.qudit import quditHGate, quditCNOTGate
+
+# Parameters
+d = 3  # Qudit dimension
+n_qudits = 3  # Number of qudits
+
+# Create qudits
+qudits = [cirq.LineQid(i, dimension=d) for i in range(n_qudits)]
+
+# Build the circuit
+circuit = cirq.Circuit()
+circuit.append(quditHGate(d).on(qudits[0]))
+for i in range(1, n_qudits):
+    circuit.append(quditCNOTGate(d).on(qudits[i - 1], qudits[i]))
+
+# Measure
+circuit.append(cirq.measure(*qudits, key='result'))
+
+# Simulate
+simulator = cirq.Simulator()
+result = simulator.run(circuit, repetitions=10)
+print(result)
+```
+
+### Example 2: Qudit GHZ State Preparation (`Using create_circuit Function`)
+
+Prepare the same GHZ state using the `create_circuit` function.
+
+```python
+from qudit_cirq.qudit import quditHGate, quditCNOTGate, qudit_measure
+
+# Build the circuit using create_circuit
+circuit, qudits, qudit_order = create_circuit(
+    3,  # Set dimension d=3
+    (quditHGate, 'q0'),
+    (quditCNOTGate, ['q0', 'q1']),
+    (quditCNOTGate, ['q1', 'q2']),
+    (qudit_measure, 'q0'),
+    (qudit_measure, 'q1'),
+    (qudit_measure, 'q2')
+)
+
+# Simulate
+simulator = cirq.Simulator()
+result = simulator.run(circuit, repetitions=10)
+print(result)
 ```
