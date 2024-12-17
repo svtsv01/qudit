@@ -6,7 +6,7 @@ Qudits are $d$-level quantum systems which serve as the generalization of qubit 
 $$
 \ket{\psi} = \sum_{j = 0}^{d-1} \alpha_j \ket{j},
 $$
-with the condition that $\sum_{j = 0}^{d - 1} |\alpha_j|^2 = 1$, and $\alpha_j \in \mathbb{C}$
+with the condition that $\sum_{j = 0}^{d - 1} |\alpha_j|^2 = 1$, and $\alpha_j \in \mathbb{C}$. For an introduction to qudit systems, see for example Asghar, Mukherjee and Brennen [2024] (https://doi.org/10.48550/arXiv.2409.04026), and the reference there in. 
 
 ---
 
