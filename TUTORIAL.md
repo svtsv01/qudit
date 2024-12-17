@@ -1,6 +1,12 @@
 # Tutorial
 
-This tutorial provides a guide on how to use the Qudit Cirq Library, including creating qudits, applying qudit gates, building circuits, and simulating quantum computations with qudits.
+This tutorial provides a guide on how to use the Qudit Cirq Library, including creating qudits, applying qudit gates, building circuits, and simulating quantum computations with qudits. 
+
+Qudits are $d$-level quantum systems which serve as the generalization of qubit systems ($d =2$). Theoretically, we assume that they lie in the $d$-dimensional complex Hilbert space $\mathbb{C}^d$. Assume that we have the computational basis $\{\ket{s} : s \in \mathbb{Z}_d\}$ of $\mathbb{C}^d$, where $\ket{s}$ is a  column vector of $d$ dimensions with zeros everywhere except at position $s$, where it is $1$. The general form of a qudit $\ket{\psi}$ is:
+$$
+\ket{\psi} = \sum_{j = 0}^{d-1} \alpha_j \ket{j},
+$$
+with the condition that $\sum_{j = 0}^{d - 1} |\alpha_j|^2 = 1$, and $\alpha_j \in \mathbb{C}$
 
 ---
 
@@ -25,7 +31,7 @@ qudit = cirq.LineQid(0, dimension=10)
 
 ## Qudit Gates
 
-The Qudit Cirq Library provides implementations of common quantum gates. Assume that we have the computational basis $\{\ket{s} : s \in \mathbb{Z}_d\}$ of $\mathbb{C}^d$, where $\ket{s}$ is a a column vector of $d$ dimensions with zeros everywhere except at position $s$, where it is $1$.
+The Qudit Cirq Library provides implementations of common quantum gates. 
 
 ### Qudit Pauli-$X$ Gate (`quditXGate`):
 
@@ -307,7 +313,7 @@ q2=2200102011
 
 ## Utility Functions
 
-The Qudit Cirq Library provides multiple utility functions to assist with formatting outputs, printing state vectors, performing tensor products.
+The Qudit Cirq Library provides multiple utility functions to assist with formatting outputs, printing state vectors, and computing tensor products.
 
 ### Formatting Output `(format_out)`
 
@@ -323,13 +329,12 @@ def format_out(matrix, output_type='float'):
 - Parameters
 
 1. matrix: The NumPy array (matrix or vector) to format.
-2. output_type (optional): The type of formatting to apply to the elements. Options are 'float', 'int', or 'str'. <strong>Default is 'float' </strong>.
+2. output_type (optional): The type of formatting to apply to the elements. Options are `float`, `int`, or `str`. Default is `float`.
 
 Example:
 
 ```python
 import numpy as np
-
 from qudit_cirq.utils import format_out
 
 # Define a matrix with complex elements
@@ -360,14 +365,17 @@ def printVector(final_state, dimensions, qudits=None, threshold=1e-6):
 
 - Parameters
 
-1. final_state: The state vector (e.g., result.final_state_vector).
-2. dimensions: An integer or list of integers representing the dimensions of the qudits.
-3. qudits (optional): A list of qudit objects to label the qudits in the output.
-4. threshold (optional): A float specifying the minimum amplitude magnitude to display. Default is 1e-6.
+1. `final_state`: The state vector, e.g., `result.final_state_vector`.
+2. `dimensions`: An integer or list of integers representing the dimensions of the qudits.
+3. `qudits` (optional): A list of qudit objects to label the qudits in the output.
+4. `threshold` (optional): A float specifying the minimum amplitude magnitude to display. Default is `1e-6`.
 
 Example:
 
 ```python
+import cirq
+from qudit_cirq.utils import printVector
+
 d = 3
 qudit1 = cirq.NamedQid('q0', dimension=d)
 qudit2 = cirq.NamedQid('q1', dimension=d)
@@ -389,7 +397,13 @@ qudit_order = [qudit1, qudit2]
 printVector(final_state, dimensions=[d, d], qudits=qudit_order)
 ```
 
-Output:
+This should produce the state
+
+$$
+\frac{1}{3}\sum_{j = 1}^3 \sum_{k = 1}^3 \ket{jk},
+$$
+
+as can be seen from the output:
 
 ```
 Final state vector:
@@ -417,11 +431,12 @@ def tensor_product(*arrays):
 
 - Parameters
 
-1. \*arrays: A variable number of NumPy arrays to compute the tensor product of.
+1. `\*arrays`: A variable number of NumPy arrays to compute their tensor product.
 
 Example:
 
 ```python
+import cirq
 import numpy as np
 from qudit_cirq.utils import tensor_product
 
@@ -443,9 +458,17 @@ Output:
 
 ## Examples
 
+We provide a couple of end-to-end examples. These examples create the Greenberger–Horne–Zeilinger (GHZ) state for qudits. The GHZ state for an $n$-qudit system in $d$ dimensions is defined as:
+
+$$
+\frac{1}{\sqrt{d}} \sum_{j = 0}^{d-1} \ket{j}^{\otimes n}
+$$
+
+The examples below construct this GHZ state using the circuit shown in Asghar, Mukherjee and Brennen [2024] (https://doi.org/10.48550/arXiv.2409.04026).
+
 ### Example 1: Qudit GHZ State Preparation (Manual Construction)
 
-Prepare a GHZ state using qudits of dimension 3.
+Prepare a GHZ state of $n = 3$ qudits of dimension $d = 3$.
 
 ```python
 import cirq
@@ -473,11 +496,48 @@ result = simulator.run(circuit, repetitions=10)
 print(result)
 ```
 
+Output:
+
+```
+result=2201011100, 2201011100, 2201011100
+```
+
+If instead, we want to print the state vector, then we can replace the measurement and simulation code with:
+
+```python
+simulator = cirq.Simulator()
+result = simulator.simulate(circuit)
+final_state = result.final_state_vector
+
+printVector(final_state, dimensions=[d, d, d])
+```
+
+This gives the output:
+
+```
+Final state vector:
+|000⟩: (0.5773502588272095+0j)
+|111⟩: (0.5773502588272095+0j)
+|222⟩: (0.5773502588272095+0j)
+```
+
+as expected. We can also print this circuit:
+
+```
+0 (d=3): ───H(d=3)───C(d=3)────────────
+                     │
+1 (d=3): ────────────X(d=3)───C(d=3)───
+                              │
+2 (d=3): ─────────────────────X(d=3)───
+```
+
+
 ### Example 2: Qudit GHZ State Preparation (`Using create_circuit Function`)
 
 Prepare the same GHZ state using the `create_circuit` function.
 
 ```python
+import cirq
 from qudit_cirq.qudit import quditHGate, quditCNOTGate, qudit_measure
 
 # Build the circuit using create_circuit
@@ -495,4 +555,12 @@ circuit, qudits, qudit_order = create_circuit(
 simulator = cirq.Simulator()
 result = simulator.run(circuit, repetitions=10)
 print(result)
+```
+
+Output:
+
+```
+m_q0=2002211000
+m_q1=2002211000
+m_q2=2002211000
 ```
