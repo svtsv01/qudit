@@ -1,7 +1,7 @@
 import numpy as np
 import cirq
-# function to format the output
 
+# function to format the output
 def format_out(matrix, output_type='float'):
 
     def format_element(elem):
@@ -21,6 +21,7 @@ def format_out(matrix, output_type='float'):
     formatted_matrix = np.array([[format_element(elem) for elem in row] for row in matrix])
     return formatted_matrix
 
+# Implementation of printVector for state vector output
 def printVector(final_state, dimensions, qudits=None, threshold=1e-6):
 
     if isinstance(dimensions, int):
@@ -49,6 +50,7 @@ def printVector(final_state, dimensions, qudits=None, threshold=1e-6):
             state = '|' + ''.join(digits) + '⟩'
             print(f"{state}: {amplitude}")
 
+# Implementation of Tensor Product for qudit
 def tensor_product(*arrays):
 
     if not arrays:

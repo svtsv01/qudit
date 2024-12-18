@@ -1,7 +1,8 @@
-#creating the circuit:
 from typing import Any, Dict, List, Tuple, Union
 import cirq
-from qudit_cirq.qudit import qudit_measure  # Import the measurement function
+from qudit_cirq.qudit import qudit_measure 
+
+# Function to create the circuit:
 
 def create_circuit(*args: Any) -> Tuple[cirq.Circuit, Dict[str, cirq.Qid], List[cirq.Qid]]:
     circuit = cirq.Circuit()
@@ -36,7 +37,7 @@ def create_circuit(*args: Any) -> Tuple[cirq.Circuit, Dict[str, cirq.Qid], List[
         elif not isinstance(qudit_names, list):
             raise ValueError(f"qudit_names must be a string or a list of strings, got {type(qudit_names)}")
 
-        # Ensure the qudits are initialized and validate dimensions
+        # Ensure the qudits are initialised and validate dimensions
         qudit_objects = []
         for name in qudit_names:
             if name not in qudits:
@@ -59,7 +60,6 @@ def create_circuit(*args: Any) -> Tuple[cirq.Circuit, Dict[str, cirq.Qid], List[
             measurement_operation = qudit_measure(qudit_objects[0], key=unique_key)
             circuit.append(measurement_operation)
         else:
-            # Ensure gate_type is a subclass of cirq.Gate for non-measurement operations
             if not isinstance(gate_type, type) or not issubclass(gate_type, cirq.Gate):
                 raise ValueError(f"Invalid gate type: {gate_type}. Must be a subclass of cirq.Gate.")
             gate = gate_type(gate_dimension)

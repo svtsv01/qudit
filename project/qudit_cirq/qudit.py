@@ -7,7 +7,6 @@ import numpy as np
 from typing import Tuple
 
 # Implementation of X gate for qudit
-# Modified quditXGate
 class quditXGate(cirq.Gate):
     def __init__(self, d, exponent=1):
         super().__init__()
@@ -33,7 +32,7 @@ class quditXGate(cirq.Gate):
         return quditXGate(self.d, exponent=new_exponent)
 
 
-# Modified quditZGate
+# Implementation of Z gate for qudit
 class quditZGate(cirq.Gate):
     def __init__(self, d, exponent=1):
         super().__init__()
@@ -80,6 +79,7 @@ class quditHGate(cirq.Gate):
     def _circuit_diagram_info_(self, args):
         return f"H(d={self.d})"
     
+# Implementation of CNOT gate for qudit   
 class quditCNOTGate(cirq.Gate):
     def __init__(self, d: int):
         super().__init__()
@@ -93,7 +93,6 @@ class quditCNOTGate(cirq.Gate):
         CNOT = np.zeros((size, size), dtype=complex)
         for a in range(self.d):
             for b in range(self.d):
-                control = a
                 target = (b + a) % self.d
                 row = a * self.d + b
                 col = a * self.d + target
@@ -102,12 +101,15 @@ class quditCNOTGate(cirq.Gate):
 
     def _circuit_diagram_info_(self, args):
         return cirq.CircuitDiagramInfo(wire_symbols=(f"C(d={self.d})", f"X(d={self.d})"))
-    
+
 
 # Implementation of Measurement Gate for qudit
+
 def qudit_measure(qudit: cirq.Qid, key: str) -> cirq.Operation:
     return cirq.measure(qudit, key=key)
-    
+
+# Implementation of State Vector Function
+#   
 def state_vector(dimension, index):
 
     if not (0 <= index < dimension):
@@ -127,7 +129,6 @@ def measure_qudits(state_vector: np.ndarray, qudit_order: List[cirq.Qid]) -> Dic
     probabilities = np.abs(state_vector) ** 2
     probabilities /= probabilities.sum() 
 
-    
     sampled_index = np.random.choice(total_dim, p=probabilities)
 
     measurement_results = {}
@@ -137,6 +138,7 @@ def measure_qudits(state_vector: np.ndarray, qudit_order: List[cirq.Qid]) -> Dic
         sampled_index = sampled_index // d
 
     return measurement_results
+
 def is_prime(n):
     if n < 2:
         return False
@@ -150,6 +152,7 @@ def is_prime(n):
             return False
     return True
 
+#  Implementation of U pi/8 Gate for qudit
 class quditU8Gate(cirq.Gate):
     def __init__(self, d, gamma=2, z=1, eps=0):
         super().__init__()
@@ -194,7 +197,7 @@ class quditU8Gate(cirq.Gate):
     def _circuit_diagram_info_(self, args):
         return f"U8(d={self.d})"
 
-
+# Implementation of Phase gate for qudit
 class quditPhaseGate(cirq.Gate):
     def __init__(self, d):
         super().__init__()
@@ -217,7 +220,7 @@ class quditPhaseGate(cirq.Gate):
 
     def _circuit_diagram_info_(self, args):
         return f"P(d={self.d})"
-    
+# Implementation of CZ gate for qudit    
 class quditCZGate(cirq.Gate):
     def __init__(self, d: int):
         super().__init__()
