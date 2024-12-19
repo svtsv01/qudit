@@ -1,24 +1,20 @@
 # Tutorial
 
-This tutorial provides a guide on how to use the Qudit Cirq Library, including creating qudits, applying qudit gates, building circuits, and simulating quantum computations with qudits. 
+This tutorial provides a guide on how to use the Qudit Cirq Library, including creating qudits, applying qudit gates, building circuits, and simulating quantum computations with qudits.
 
-Qudits are $d$-level quantum systems which serve as the generalization of qubit systems ($d =2$). Theoretically, we assume that they lie in the $d$-dimensional complex Hilbert space $\mathbb{C}^d$. Assume that we have the computational basis $\{\ket{s} : s \in \mathbb{Z}_d\}$ of $\mathbb{C}^d$, where $\ket{s}$ is a  column vector of $d$ dimensions with zeros everywhere except at position $s$, where it is $1$. The general form of a qudit $\ket{\psi}$ is:
+Qudits are $d$-level quantum systems which serve as the generalization of qubit systems ($d =2$). Theoretically, we assume that they lie in the $d$-dimensional complex Hilbert space $\mathbb{C}^d$. Assume that we have the computational basis $\{\ket{s} : s \in \mathbb{Z}_d\}$ of $\mathbb{C}^d$, where $\ket{s}$ is a column vector of $d$ dimensions with zeros everywhere except at position $s$, where it is $1$. The general form of a qudit $\ket{\psi}$ is:
+
 $$
 \ket{\psi} = \sum_{j = 0}^{d-1} \alpha_j \ket{j},
 $$
-with the condition that $\sum_{j = 0}^{d - 1} |\alpha_j|^2 = 1$, and $\alpha_j \in \mathbb{C}$. For an introduction to qudit systems, see for example Asghar, Mukherjee and Brennen [2024] (https://doi.org/10.48550/arXiv.2409.04026), and the reference there in. 
+
+with the condition that $\sum_{j = 0}^{d - 1} |\alpha_j|^2 = 1$, and $\alpha_j \in \mathbb{C}$. For an introduction to qudit systems, see for example Asghar, Mukherjee and Brennen [2024] (https://doi.org/10.48550/arXiv.2409.04026), and the reference there in.
 
 ---
 
 ## Creating Qudits
 
 Qudits are created using Cirq's `LineQid` class with a specified dimension. Here's how you can create a qudit of dimension $d$:
-
-TODO:
-
-- [ ] is this qudit $\ket{0}$?
-- [ ] what is `0` in `LineQid`?
-- [ ] is there a way to initial a qudit to $\ket{s}$ for any $s \in \mathbb{Z}_d$?
 
 The following code creates the qudit $\ket{0}$ of dimension $𝑑 = 10$
 
@@ -29,9 +25,17 @@ import cirq
 qudit = cirq.LineQid(0, dimension=10)
 ```
 
+To create a state vector representing $\ket{S}$ you can use the next:
+
+```python
+s = 3
+initial_state = np.zeros(d, dtype=complex)
+initial_state[s] = 1
+```
+
 ## Qudit Gates
 
-The Qudit Cirq Library provides implementations of common quantum gates. 
+The Qudit Cirq Library provides implementations of common quantum gates.
 
 ### Qudit Pauli-$X$ Gate (`quditXGate`):
 
@@ -50,10 +54,6 @@ x_gate = quditXGate(d=3)
 ```
 
 This can be applied on a qudit using `.on()`.
-
-TODO:
-
-- [ ] Does the dimension needs to be specified even if it is evident from the qudit it is applied on? Yes they should be specific
 
 ### Qudit Pauli-$Z$ Gate (`quditZGate`):
 
@@ -109,10 +109,6 @@ from qudit_cirq.qudit import quditCNOTGate
 cnot_gate = quditCNOTGate(d=4)
 ```
 
-TODO (IMPORTANT):
-
-- [ ] What you have implemented is the $X^\dagger$ gate that sends $\ket{r}\ket{s} \rightarrow \ket{r}\ket{r - s}$. For example with $d = 3$, this will send $\ket{1}\ket{0} \rightarrow \ket{1}\ket{2}$. Instead, it should send  $\ket{1}\ket{0} \rightarrow \ket{1}\ket{1}$.
-
 This can be applied on on a qudit using `.on()`. In this case two qudits need to be specified, target and control, respectively.
 
 ### Qudit $S$ Gate (`quditPhaseGate`):
@@ -144,9 +140,14 @@ $$
 
 This is one of the generators of the qudit Clifford group, alongwith the Pauli-$Z$ gate, the qudit Hadamard gate and the controlled-$Z$ gate. See for example Jafarzadeh et al [2019] (https://doi.org/10.48550/arXiv.1911.08162).
 
-TODO:
+```python
+from qudit_cirq.qudit import quditPhaseGate
 
-- [ ] Can we please add this gates implementation as well? I missed it. Yes
+# Create a qudit Phase gate for dimension d=5 (prime and odd)
+phase_gate = quditCZGate(d=5)
+```
+
+This can be applied on a qudit using `.on()`.
 
 ### Qudit $U_{\pi/8}$ Gate (`quditU8Gate`):
 
@@ -431,7 +432,7 @@ def tensor_product(*arrays):
 
 - Parameters
 
-1. `\*arrays`: A variable number of NumPy arrays to compute their tensor product.
+1. `*arrays`: A variable number of NumPy arrays to compute their tensor product.
 
 Example:
 
@@ -531,7 +532,6 @@ as expected. We can also print this circuit:
 2 (d=3): ─────────────────────X(d=3)───
 ```
 
-
 ### Example 2: Qudit GHZ State Preparation (`Using create_circuit Function`)
 
 Prepare the same GHZ state using the `create_circuit` function.
@@ -564,3 +564,5 @@ m_q0=2002211000
 m_q1=2002211000
 m_q2=2002211000
 ```
+
+## Computantional Constraintes
