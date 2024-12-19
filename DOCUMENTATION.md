@@ -73,6 +73,8 @@ Make sure to update the link
 
 If you have any issues go to <strong> step 2 </strong> and try to set up everything using Anaconda Navigator.
 
+<h3> Option 2: </h3>
+
 2. **Installing the Qudit Cirq Library via Anaconda**
 
 #### Prerequisites
@@ -116,18 +118,9 @@ Install Cirq and other dependencies within the environment:
 conda install -c conda-forge cirq numpy matplotlib
 ```
 
-<!-- My installation is stuck at this step. Also, if I have already installed cirq, numpy, matplotlib, why do I have to install them again?
-At this point it is also a good idea to have a "hello world" example to check if the environment is running correctly
--->
-
 Alternatively, you can use pip: see step 1.1.
 
-<!--
-- I think this is a bit confusing. You can make it into two ways to install and number them separately: install via anaconda, or install via pip
-- Also, the install cirq part is duplicate
--->
-
-4. **Verify the Installation**
+2.4. **Verify the Installation**
 
 ```bash
 python -c "import cirq; print('Cirq version:', cirq.__version__)"
@@ -135,7 +128,7 @@ python -c "import cirq; print('Cirq version:', cirq.__version__)"
 
 Ensure the version is 0.10.0 or higher for qudit support.
 
-5. **Clone the Qudit Library Repository**
+2.5. **Clone the Qudit Library Repository**
 
 Clone the repository from GitHub:
 
@@ -143,19 +136,15 @@ Clone the repository from GitHub:
 git clone link
 ```
 
-<!--
-Make sure to update the link
--->
-
-6. **Navigate to the Library Directory**
+2.6. **Navigate to the Library Directory**
 
 Change to the library directory:
 
 ```
-cd qudit-cirq-library
+cd qudit
 ```
 
-7. **Install the Qudit Library**
+2.7. **Install the Qudit Library**
 
 ```
 pip install -e .
@@ -177,8 +166,6 @@ These dependencies should have been installed in step 3. If you encounter issues
 ```
 pip install cirq numpy matplotlib
 ```
-
-## <!-- again this is a repitition of the above. These things have been installed. -->
 
 ## Fixing Common Dependency Issues
 
@@ -214,9 +201,3 @@ While there are no hard-coded limits on the number of qudits, their dimensions, 
 ## Cloud-Computing Services
 
 For qudit-based quantum simulations and library usage, leveraging cloud computing services can help ensure scalability, cost-effectiveness, and ease of collaboration. Services like <strong> Amazon Web Services (AWS), Google Cloud Platform (GCP), or Microsoft Azure </strong> can provide high-performance compute instances to run complex simulations efficiently.
-
-## References
-
--
--
--
