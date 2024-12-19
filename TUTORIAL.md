@@ -561,20 +561,16 @@ m_q1=2002211000
 m_q2=2002211000
 ```
 
-## Computantional Constraintes
+## Computational Constraints
 
-For each tested dimension 𝑑, our library can generate random qudit circuits with the following maximum qudit counts (for depth 10) under the given hardware constraints (AMD Ryzen 5 5500U at 2.10 GHz, Radeon Graphics, 8GB RAM):
+In order to assess the dimension $d$ and the number of qudits $n$ that can be processed in reasonable time via our library, we ran a simple test on a computer with the specification: AMD Ryzen 5 5500U at 2.10 GHz, Radeon Graphics, 8GB RAM. We set a maximum time limit of approximately one minute per simulation run, ensuring that no single circuit execution exceeded this threshold. The circuits were built randomly using the following schema:
 
-![Test](assest/image.png "Optional Title")
+- Initialise a specified number $n$ of qudits at dimension $d$.
+- Randomly choose a 10 single-qudit or two-qudit gates from $X$, $Z$, $H$, and $CX$. Thus the circuit depth is 10.
+- Append measurement operations.
 
-These values illustrate how increasing the dimension imposes stricter limits on the number of qudits that can be realistically handled with the available computational resources. By leveraging quantum cloud computing platforms, it may become possible to handle even larger qudit circuits with greater complexity and simulated beyond the constraints of local hardware.
+The results are shown in the figure below. The reported results are based on single-run scenarios for each dimension and qudit count. Additional runs and averaging could provide more robust metrics.
 
-**Additional Notes:**
+![Test](assest/dim-vs-n.png "Optional Title")
 
-- We set a maximum time limit of approximately one minute per simulation run, ensuring that no single circuit execution exceeded this threshold.
-- The results reported here are based on single-run scenarios for each dimension and qudit count; however, additional runs and averaging could provide more robust metrics.
-
-- The random qudit circuits were generated using our proprietary algorithm:
-  1. Initialise a specified number of qudits at dimension \( d \).
-  2. Randomly choose single-qudit or two-qudit gates (X, Z, H, and CNOT) according to a set probability at each layer.
-  3. Repeat this process up to the defined circuit depth, and then append measurement operations.
+Not suprisingly, increasing the dimension results in fewer number of qudits processed within the one minute time limit imposed by us. However, by leveraging GPUs and/or quantum cloud computing services the library should be able to handle even larger qudit circuits with greater complexity.
