@@ -562,3 +562,9 @@ m_q2=2002211000
 ```
 
 ## Computantional Constraintes
+
+For each tested dimension 𝑑, our library can generate random qudit circuits with the following maximum qudit counts (for depth 10) under the given hardware constraints (AMD Ryzen 5 5500U at 2.10 GHz, Radeon Graphics, 8GB RAM):
+
+![Test](assest/image.png "Optional Title")
+
+These values illustrate how increasing the dimension imposes stricter limits on the number of qudits that can be realistically handled with the available computational resources. By leveraging quantum cloud computing platforms, it may become possible to handle even larger qudit circuits with greater complexity and simulated beyond the constraints of local hardware.
