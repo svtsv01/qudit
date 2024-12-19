@@ -245,10 +245,6 @@ q1 (d=3): ────────────X(d=3)───M('m_q1')───
 2.  qudits: A dictionary mapping qudit names to `cirq.Qid` objects.
 3.  qudit_order: A list of qudits in the order they were added.
 
-TODO
-
-- [ ] Can you specify an example or reason why the order of the qudits might be of importance?
-
 ### Extended Usage of the `create_circuit` Function:
 
 If needed, the dimensions for each qudit can be specified explicitly in the `create_circuit` function:
