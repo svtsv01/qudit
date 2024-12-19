@@ -568,3 +568,13 @@ For each tested dimension 𝑑, our library can generate random qudit circuits w
 ![Test](assest/image.png "Optional Title")
 
 These values illustrate how increasing the dimension imposes stricter limits on the number of qudits that can be realistically handled with the available computational resources. By leveraging quantum cloud computing platforms, it may become possible to handle even larger qudit circuits with greater complexity and simulated beyond the constraints of local hardware.
+
+**Additional Notes:**
+
+- We set a maximum time limit of approximately one minute per simulation run, ensuring that no single circuit execution exceeded this threshold.
+- The results reported here are based on single-run scenarios for each dimension and qudit count; however, additional runs and averaging could provide more robust metrics.
+
+- The random qudit circuits were generated using our proprietary algorithm:
+  1. Initialise a specified number of qudits at dimension \( d \).
+  2. Randomly choose single-qudit or two-qudit gates (X, Z, H, and CNOT) according to a set probability at each layer.
+  3. Repeat this process up to the defined circuit depth, and then append measurement operations.
