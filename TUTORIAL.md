@@ -14,20 +14,22 @@ with the condition that $\sum_{j = 0}^{d - 1} |\alpha_j|^2 = 1$, and $\alpha_j \
 
 ## Creating Qudits
 
-Qudits are created using Cirq's `LineQid` class with a specified dimension. Here's how you can create a qudit of dimension $d$:
-
-The following code creates the qudit $\ket{0}$ of dimension $𝑑 = 10$
+Qudits are created using Cirq's `LineQid` class with a specified dimension. The following code creates the qudit $\ket{0}$ of dimension $d = 10$
 
 ```python
 import cirq
 
-# Create a qudit of dimension 𝑑 = 10
+# Create a qudit of dimension d = 10
 qudit = cirq.LineQid(0, dimension=10)
 ```
 
-To create a state vector representing $\ket{S}$ you can use the next:
+To create any other initial state $\ket{s}$ for $s \in \mathbb{Z}_d$ you can use the following code:
 
 ```python
+import cirq
+import numpy as np 
+
+d = 10
 s = 3
 initial_state = np.zeros(d, dtype=complex)
 initial_state[s] = 1
@@ -35,12 +37,12 @@ initial_state[s] = 1
 
 ## Qudit Gates
 
-The Qudit Cirq Library provides implementations of common quantum gates.
+The Qudit Cirq Library provides implementation of common quantum gates.
 
 ### Qudit Pauli-$X$ Gate (`quditXGate`):
 
 The qudit Pauli-$X$ gate generalizes the bit-flip operation to
-$𝑑$ dimensions. Its operation on the computational basis state $\ket{s}$ is defined as:
+$d$ dimensions. Its operation on the computational basis state $\ket{s}$ is defined as:
 
 $$
 X\ket{s} = \ket{s + 1}
@@ -82,7 +84,7 @@ $$
 H\ket{s} = \frac{1}{\sqrt{d}}\sum_{j = 0}^{d-1} \omega^{js} \ket{j}
 $$
 
-See for example Yang et al. [2020] (https://doi.org/10.3389/fphy.2020.589504).
+See for example Wang et al. [2020] (https://doi.org/10.3389/fphy.2020.589504).
 
 ```python
 
@@ -109,11 +111,11 @@ from qudit_cirq.qudit import quditCNOTGate
 cnot_gate = quditCNOTGate(d=4)
 ```
 
-This can be applied on on a qudit using `.on()`. In this case two qudits need to be specified, target and control, respectively.
+This can be applied on a qudit using `.on()`. In this case two qudits need to be specified, target and control, respectively.
 
 ### Qudit $S$ Gate (`quditPhaseGate`):
 
-The qudit S gate generalizes the phase gate to dimension $d$. Its operation on the computational basis state $\ket{s}$ is defined as:
+The qudit $S$ gate generalizes the phase gate to dimension $d$. Its operation on the computational basis state $\ket{s}$ is defined as:
 
 $$
 S\ket{s} = \omega^{s(s+p_d)/2} \ket{s},
@@ -163,7 +165,7 @@ https://doi.org/10.48550/arXiv.1206.1598). Our implementation of this gate follo
 ```python
 from qudit_cirq.qudit import quditU8Gate
 
-# Create a qudit U_{π/8} gate for dimension d=7
+# Create a qudit U_{pi/8} gate for dimension d=7
 u8_gate = quditU8Gate(d=7)
 ```
 
