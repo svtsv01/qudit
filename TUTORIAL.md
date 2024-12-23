@@ -530,7 +530,7 @@ as expected. We can also print this circuit:
 2 (d=3): ─────────────────────X(d=3)───
 ```
 
-### Example 2: Qudit GHZ State Preparation (`Using create_circuit Function`)
+### Example 2: Qudit GHZ State Preparation (Using the `create_circuit` Function)
 
 Prepare the same GHZ state using the `create_circuit` function.
 
