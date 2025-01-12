@@ -14,20 +14,22 @@ with the condition that $\sum_{j = 0}^{d - 1} |\alpha_j|^2 = 1$, and $\alpha_j \
 
 ## Creating Qudits
 
-Qudits are created using Cirq's `LineQid` class with a specified dimension. Here's how you can create a qudit of dimension $d$:
-
-The following code creates the qudit $\ket{0}$ of dimension $𝑑 = 10$
+Qudits are created using Cirq's `LineQid` class with a specified dimension. The following code creates the qudit $\ket{0}$ of dimension $d = 10$
 
 ```python
 import cirq
 
-# Create a qudit of dimension 𝑑 = 10
+# Create a qudit of dimension d = 10
 qudit = cirq.LineQid(0, dimension=10)
 ```
 
-To create a state vector representing $\ket{S}$ you can use the next:
+To create any other initial state $\ket{s}$ for $s \in \mathbb{Z}_d$ you can use the following code:
 
 ```python
+import cirq
+import numpy as np 
+
+d = 10
 s = 3
 initial_state = np.zeros(d, dtype=complex)
 initial_state[s] = 1
@@ -35,12 +37,12 @@ initial_state[s] = 1
 
 ## Qudit Gates
 
-The Qudit Cirq Library provides implementations of common quantum gates.
+The Qudit Cirq Library provides implementation of common quantum gates.
 
 ### Qudit Pauli-$X$ Gate (`quditXGate`):
 
 The qudit Pauli-$X$ gate generalizes the bit-flip operation to
-$𝑑$ dimensions. Its operation on the computational basis state $\ket{s}$ is defined as:
+$d$ dimensions. Its operation on the computational basis state $\ket{s}$ is defined as:
 
 $$
 X\ket{s} = \ket{s + 1}
@@ -82,7 +84,7 @@ $$
 H\ket{s} = \frac{1}{\sqrt{d}}\sum_{j = 0}^{d-1} \omega^{js} \ket{j}
 $$
 
-See for example Yang et al. [2020] (https://doi.org/10.3389/fphy.2020.589504).
+See for example Wang et al. [2020] (https://doi.org/10.3389/fphy.2020.589504).
 
 ```python
 
@@ -109,11 +111,11 @@ from qudit_cirq.qudit import quditCNOTGate
 cnot_gate = quditCNOTGate(d=4)
 ```
 
-This can be applied on on a qudit using `.on()`. In this case two qudits need to be specified, target and control, respectively.
+This can be applied on a qudit using `.on()`. In this case two qudits need to be specified, target and control, respectively.
 
 ### Qudit $S$ Gate (`quditPhaseGate`):
 
-The qudit S gate generalizes the phase gate to dimension $d$. Its operation on the computational basis state $\ket{s}$ is defined as:
+The qudit $S$ gate generalizes the phase gate to dimension $d$. Its operation on the computational basis state $\ket{s}$ is defined as:
 
 $$
 S\ket{s} = \omega^{s(s+p_d)/2} \ket{s},
@@ -163,7 +165,7 @@ https://doi.org/10.48550/arXiv.1206.1598). Our implementation of this gate follo
 ```python
 from qudit_cirq.qudit import quditU8Gate
 
-# Create a qudit U_{π/8} gate for dimension d=7
+# Create a qudit U_{pi/8} gate for dimension d=7
 u8_gate = quditU8Gate(d=7)
 ```
 
@@ -528,7 +530,7 @@ as expected. We can also print this circuit:
 2 (d=3): ─────────────────────X(d=3)───
 ```
 
-### Example 2: Qudit GHZ State Preparation (`Using create_circuit Function`)
+### Example 2: Qudit GHZ State Preparation (Using the `create_circuit` Function)
 
 Prepare the same GHZ state using the `create_circuit` function.
 
@@ -561,20 +563,16 @@ m_q1=2002211000
 m_q2=2002211000
 ```
 
-## Computantional Constraintes
+## Computational Constraints
 
-For each tested dimension 𝑑, our library can generate random qudit circuits with the following maximum qudit counts (for depth 10) under the given hardware constraints (AMD Ryzen 5 5500U at 2.10 GHz, Radeon Graphics, 8GB RAM):
+In order to assess the dimension $d$ and the number of qudits $n$ that can be processed in reasonable time via our library, we ran a simple test on a computer with the specification: AMD Ryzen 5 5500U at 2.10 GHz, Radeon Graphics, 8GB RAM. We set a maximum time limit of approximately one minute per simulation run, ensuring that no single circuit execution exceeded this threshold. The circuits were built randomly using the following schema:
 
-![Test](assest/image.png "Optional Title")
+- Initialise a specified number $n$ of qudits at dimension $d$.
+- Randomly choose a 10 single-qudit or two-qudit gates from $X$, $Z$, $H$, and $CX$. Thus the circuit depth is 10.
+- Append measurement operations.
 
-These values illustrate how increasing the dimension imposes stricter limits on the number of qudits that can be realistically handled with the available computational resources. By leveraging quantum cloud computing platforms, it may become possible to handle even larger qudit circuits with greater complexity and simulated beyond the constraints of local hardware.
+The results are shown in the figure below. The reported results are based on single-run scenarios for each dimension and qudit count. Additional runs and averaging could provide more robust metrics.
 
-**Additional Notes:**
+![Test](assest/dim-vs-n.png "Optional Title")
 
-- We set a maximum time limit of approximately one minute per simulation run, ensuring that no single circuit execution exceeded this threshold.
-- The results reported here are based on single-run scenarios for each dimension and qudit count; however, additional runs and averaging could provide more robust metrics.
-
-- The random qudit circuits were generated using our proprietary algorithm:
-  1. Initialise a specified number of qudits at dimension \( d \).
-  2. Randomly choose single-qudit or two-qudit gates (X, Z, H, and CNOT) according to a set probability at each layer.
-  3. Repeat this process up to the defined circuit depth, and then append measurement operations.
+Not suprisingly, increasing the dimension results in fewer number of qudits processed within the one minute time limit imposed by us. However, by leveraging GPUs and/or quantum cloud computing services the library should be able to handle even larger qudit circuits with greater complexity.
