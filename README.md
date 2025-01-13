@@ -8,6 +8,10 @@ You can check the documentation at [].
 
 ## Installation
 
+See the `DOCUMENTATION.md`.
+
+Clone this repository and run:
+
 ```bash
 pip
 ```
@@ -17,10 +21,9 @@ pip
 ```
 @misc{Qudit Library,
 title={ProjectName: A Library for Google's Cirq framework},
-author={Svyatoslav Kushnarev},
-year={2024},,,
-primaryClass={[subject-area]},
-url={??????},
+author={Svyatoslav Kushnarev, Hassan Asghar},
+year={2024},
+url={https://72daa55f.qudite.pages.dev},
 }
 ```
 

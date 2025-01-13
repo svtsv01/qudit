@@ -38,6 +38,8 @@ This qudit Cirq library enhances [Google's Cirq](https://quantumai.google/cirq) 
 
 - **Python 3.7 or higher**: Ensure you have a compatible Python version installed.
 - **pip**: The Python package installer.
+- **cirq**
+- **numpy**
 
 ### Installing Cirq
 
@@ -62,12 +64,8 @@ Ensure the version is 0.10.0 or higher for qudit support.
 Clone the repository from GitHub:
 
 ```git
-git clone link
+git clone https://github.com/svtsv01/qudit.git
 ```
-
-<!--
-Make sure to update the link
--->
 
 1.4 Now the new notebook can be created.
 
@@ -133,7 +131,7 @@ Ensure the version is 0.10.0 or higher for qudit support.
 Clone the repository from GitHub:
 
 ```git
-git clone link
+git clone https://github.com/svtsv01/qudit.git
 ```
 
 2.6. **Navigate to the Library Directory**
