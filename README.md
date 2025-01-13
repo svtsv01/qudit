@@ -13,7 +13,7 @@ See the `DOCUMENTATION.md`.
 Clone this repository and run:
 
 ```bash
-pip
+pip install qudit
 ```
 
 ## BibTeX
