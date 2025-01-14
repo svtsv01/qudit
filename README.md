@@ -2,7 +2,7 @@
 
 This library extends Google's Cirq framework to support **qudits**.
 
-You can check the documentation at [https://72daa55f.qudite.pages.dev].
+You can check the documentation at [https://qudite.pages.dev/].
 
 ---
 
@@ -23,7 +23,7 @@ pip install qudit
 title={ProjectName: A Library for Google's Cirq framework},
 author={Svyatoslav Kushnarev, Hassan Asghar},
 year={2024},
-url={https://72daa55f.qudite.pages.dev},
+url={https://qudite.pages.dev/},
 }
 ```
 
