@@ -19,11 +19,22 @@ pip install qudit
 ## BibTeX
 
 ```
-@misc{Qudit Library,
-title={ProjectName: A Library for Google's Cirq framework},
-author={Svyatoslav Kushnarev, Hassan Asghar},
-year={2024},
-url={https://qudite.pages.dev/},
+@misc{kushnarev2025quditcirqlibraryextension,
+
+      title={The Qudit Cirq Library: An Extension of Google's Cirq Library for Qudits},
+
+      author={Svyatoslav Kushnarev and Hassan Jameel Asghar},
+
+      year={2025},
+
+      eprint={2501.07812},
+
+      archivePrefix={arXiv},
+
+      primaryClass={quant-ph},
+
+      url={https://arxiv.org/abs/2501.07812}
+
 }
 ```
 
